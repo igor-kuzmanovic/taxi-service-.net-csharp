@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace TaxiService.Models
+{
+    public class Driver : ApplicationUser
+    {
+        public Location Location { get; set; }
+
+        public Car Car { get; set; }
+    }
+}
