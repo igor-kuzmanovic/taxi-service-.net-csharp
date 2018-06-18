@@ -1,2 +1,2 @@
 # Taxi-Service-ASP
-A Taxi Service built using ASP.NET Web API 2 and AngularJS
+A taxi service web application built using ASP.NET Web API 2 and AngularJS
