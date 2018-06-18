@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,7 @@ namespace TaxiService.Models
 {
     public class Address
     {
-        public int Id { get; set; }
+        public int AddressId { get; set; }
 
         public string Street { get; set; }
 

@@ -7,8 +7,6 @@ namespace TaxiService.Models
 {
     public class ApplicationUser
     {
-        public int Id { get; set; }
-
         public string Username { get; set; }
 
         public string Password { get; set; }
@@ -27,6 +25,6 @@ namespace TaxiService.Models
 
         public UserRole Role { get; set; }
 
-        public Ride Ride { get; set; }
+        public ICollection<int> RideIds { get; set; }
     }
 }

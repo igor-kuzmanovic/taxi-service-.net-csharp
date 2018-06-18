@@ -7,5 +7,6 @@ namespace TaxiService.Models
 {
     public class Customer : ApplicationUser
     {
+        public int CustomerId { get; set; }
     }
 }

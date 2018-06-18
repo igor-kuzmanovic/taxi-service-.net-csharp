@@ -7,5 +7,6 @@ namespace TaxiService.Models
 {
     public class Dispatcher : ApplicationUser
     {
+        public int DispatcherId { get; set; }
     }
 }
