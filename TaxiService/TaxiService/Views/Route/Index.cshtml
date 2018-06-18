@@ -6,41 +6,34 @@
     <title>Taxi Service</title>
 
     <link href="/Content/css" rel="stylesheet" />
-
-    <script src="/bundles/jquery"></script>
-    <script src="/bundles/angular"></script>
-    <script src="/bundles/bootstrap"></script>
-
-    <script src="~/AngularJS/app.js"></script>
-    <script src="~/AngularJS/routes.js"></script>
-    <script src="~/AngularJS/Controllers/test-controller.js"></script>
 </head>
 <body ng-app="app">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">Taxi Service</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                </ul>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav"></ul>
             </div>
         </div>
-    </div>
+    </nav>
 
     <div class="container body-content">
-        <br />
         <ng-view></ng-view>
-        <hr />
-        <footer>
-            <p>&copy; 2018 - Taxi Service</p>
-        </footer>
     </div>
+
+    <script src="/bundles/jquery"></script>
+    <script src="/bundles/angular"></script>
+    <script src="/bundles/bootstrap"></script>
+    <script src="~/AngularJS/app.js"></script>
+    <script src="~/AngularJS/routes.js"></script>
+    <script src="~/AngularJS/Controllers/test-controller.js"></script>
 </body>
 </html>
