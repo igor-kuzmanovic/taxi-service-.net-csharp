@@ -8,9 +8,14 @@
     <link href="/Content/css" rel="stylesheet" />
 
     <script src="/bundles/jquery"></script>
+    <script src="/bundles/angular"></script>
     <script src="/bundles/bootstrap"></script>
+
+    <script src="~/AngularJS/app.js"></script>
+    <script src="~/AngularJS/routes.js"></script>
+    <script src="~/AngularJS/Controllers/test-controller.js"></script>
 </head>
-<body>
+<body ng-app="app">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -31,9 +36,7 @@
 
     <div class="container body-content">
         <br />
-        <div>
-
-        </div>
+        <ng-view></ng-view>
         <hr />
         <footer>
             <p>&copy; 2018 - Taxi Service</p>

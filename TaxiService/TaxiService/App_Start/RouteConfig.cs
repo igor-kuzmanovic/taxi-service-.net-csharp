@@ -14,9 +14,15 @@ namespace TaxiService
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}",
-                defaults: new { controller = "Home", action = "Index" }
+                name: "DefaultViews",
+                url: "View/{controller}/{action}",
+                defaults: new { }
+            );
+
+            routes.MapRoute(
+                name: "AngularApp",
+                url: "{*.}",
+                defaults: new { controller = "Route", action = "Index" }
             );
         }
     }

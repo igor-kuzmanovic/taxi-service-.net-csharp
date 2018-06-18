@@ -6,11 +6,16 @@ using System.Web.Mvc;
 
 namespace TaxiService.Controllers
 {
-    public class HomeController : Controller
+    public class RouteController : Controller
     {
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Test()
+        {
+            return new FilePathResult("~/Views/Test.html", "text/html");
         }
     }
 }
