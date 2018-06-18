@@ -161,8 +161,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\RouteController.cs" />
-    <Compile Include="Controllers\Api\ValuesController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\Api\CustomerController.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,6 +170,14 @@
     <Compile Include="Migrations\201806180018179_InitialModels.cs" />
     <Compile Include="Migrations\201806180018179_InitialModels.Designer.cs">
       <DependentUpon>201806180018179_InitialModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806182159260_CustomerBasicValidation.cs" />
+    <Compile Include="Migrations\201806182159260_CustomerBasicValidation.Designer.cs">
+      <DependentUpon>201806182159260_CustomerBasicValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806182202317_CustomerBasicValidation1.cs" />
+    <Compile Include="Migrations\201806182202317_CustomerBasicValidation1.Designer.cs">
+      <DependentUpon>201806182202317_CustomerBasicValidation1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -185,7 +193,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AngularJS\Controllers\test-controller.js" />
+    <Content Include="AngularJS\Controllers\home-controller.js" />
+    <Content Include="AngularJS\Controllers\main-controller.js" />
+    <Content Include="AngularJS\Controllers\login-controller.js" />
+    <Content Include="AngularJS\Controllers\registration-controller.js" />
+    <Content Include="AngularJS\Services\user-service.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -212,8 +224,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Views\Registration.html" />
-    <Content Include="Views\Test.html" />
+    <Content Include="Views\Partials\Home.html" />
+    <Content Include="Views\Partials\Login.html" />
+    <Content Include="Views\Partials\Registration.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -223,8 +236,8 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Route\Index.cshtml" />
-    <Content Include="Views\Route\Error.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -261,6 +274,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806180018179_InitialModels.resx">
       <DependentUpon>201806180018179_InitialModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806182159260_CustomerBasicValidation.resx">
+      <DependentUpon>201806182159260_CustomerBasicValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806182202317_CustomerBasicValidation1.resx">
+      <DependentUpon>201806182202317_CustomerBasicValidation1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,34 @@
+﻿<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <form name="ctrl.form" ng-submit="ctrl.submit()" novalidate>
+            <div class="form-group" align="center">
+                <h3>Sign Up</h3>
+            </div>
+            <div class="form-group" ng-class="{'has-feedback': !ctrl.form.username.$pristine, 'has-error': !ctrl.form.username.$pristine && ctrl.form.username.$invalid, 'has-success': !ctrl.form.username.$pristine && ctrl.form.username.$valid}">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" ng-model="ctrl.username" required ng-minlength="4" ng-maxlength="255">
+                <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!ctrl.form.username.$pristine && ctrl.form.username.$valid"></span>
+                <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="!ctrl.form.username.$pristine && ctrl.form.username.$invalid"></span>
+                <label class="text-danger" ng-show="!ctrl.form.username.$pristine && ctrl.form.username.$error.required">Please enter a username!</label>
+                <label class="text-danger" ng-show="!ctrl.form.username.$pristine && ctrl.form.username.$error.minlength">Please enter a longer username!</label>
+                <label class="text-danger" ng-show="!ctrl.form.username.$pristine && ctrl.form.username.$error.maxlength">Please enter a shorter username!</label>
+            </div>
+            <div class="form-group" ng-class="{'has-feedback': !ctrl.form.password.$pristine, 'has-error': !ctrl.form.password.$pristine && ctrl.form.password.$invalid, 'has-success': !ctrl.form.password.$pristine && ctrl.form.password.$valid}">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" ng-model="ctrl.password" required ng-minlength="4" ng-maxlength="255">
+                <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!ctrl.form.password.$pristine && ctrl.form.password.$valid"></span>
+                <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="!ctrl.form.password.$pristine && ctrl.form.password.$invalid"></span>
+                <label class="text-danger" ng-show="!ctrl.form.password.$pristine && ctrl.form.password.$error.required">Please enter a password!</label>
+                <label class="text-danger" ng-show="!ctrl.form.password.$pristine && ctrl.form.password.$error.minlength">Please enter a longer password!</label>
+                <label class="text-danger" ng-show="!ctrl.form.password.$pristine && ctrl.form.password.$error.maxlength">Please enter a shorter password!</label>
+            </div>
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <div class="form-group" align="center">
+            <span class="text-info">Already have an account?</span>
+            <a href="/Login"> Log In!</a>
+        </div>
+    </div>
+</div>
