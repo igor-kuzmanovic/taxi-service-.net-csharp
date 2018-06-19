@@ -22,11 +22,14 @@
         }
 
         UserService.createCustomer(user)
-            .then(function (data) {
-                $location.path('/Login');
-            }, function (data) {
-                alert(data);
-            });
+            .then(
+                function (response) {
+                    alert(response.data.customerId);;
+                },
+                function (response) {
+                    alert(response.data.message);
+                }
+            );
     }
 
 }]);

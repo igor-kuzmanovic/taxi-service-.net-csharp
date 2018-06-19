@@ -22,7 +22,7 @@ namespace TaxiService.Controllers.Api
         public IHttpActionResult CreateCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest("Please check all fields");
 
             if (_context.Customers.Any(c => c.Username == customer.Username))
                 return BadRequest("Username already exists");
