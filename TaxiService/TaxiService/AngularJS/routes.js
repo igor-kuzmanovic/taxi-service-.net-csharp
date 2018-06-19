@@ -1,27 +1,27 @@
 ﻿app.config(function ($routeProvider, $locationProvider) {
 
-    $locationProvider.html5Mode({ enabled: true, requireBase: false });
-
     $routeProvider
 
         .when("/", {
-            templateUrl: "View/Main/Registration",
+            templateUrl: "View/Registration",
             controller: "RegistrationController",
             controllerAs: "ctrl"
         })
 
         .when("/Login", {
-            templateUrl: "View/Main/Login",
+            templateUrl: "View/Login",
             controller: "LoginController",
             controllerAs: "ctrl"
         })
 
         .when("/Home", {
-            templateUrl: "View/Main/Home",
+            templateUrl: "View/Home",
             controller: "HomeController",
             controllerAs: "ctrl"
         })
 
-        .otherwise({ redirectTo: "/" });
+        .otherwise({ redirectTo: "/Home" });
+
+    $locationProvider.html5Mode(true);
 
 });

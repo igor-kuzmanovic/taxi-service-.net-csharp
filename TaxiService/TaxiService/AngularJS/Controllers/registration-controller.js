@@ -23,7 +23,7 @@
 
         UserService.createCustomer(user)
             .then(function (data) {
-                alert(data);
+                $location.path('/Login');
             }, function (data) {
                 alert(data);
             });

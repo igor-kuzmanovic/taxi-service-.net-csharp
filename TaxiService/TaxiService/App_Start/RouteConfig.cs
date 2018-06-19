@@ -14,15 +14,15 @@ namespace TaxiService
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "View/{controller}/{action}",
+                name: "View",
+                url: "{controller}/{action}",
                 defaults: new { }
             );
 
             routes.MapRoute(
-                name: "Main",
+                name: "Base",
                 url: "{*.}",
-                defaults: new { controller = "Main", action = "Index" }
+                defaults: new { controller = "Base", action = "Index" }
             );
         }
     }
