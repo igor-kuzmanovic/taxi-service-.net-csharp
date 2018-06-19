@@ -21,6 +21,7 @@
     <script src="~/AngularJS/Controllers/home-controller.js"></script>
 
     <script src="~/AngularJS/Services/user-service.js"></script>
+    <script src="~/AngularJS/Services/customer-service.js"></script>
 </head>
 <body ng-cloak>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,12 +29,12 @@
             <div class="navbar-header">
                 <a class="navbar-brand" ng-href="/Home">Taxi Service</a>
             </div>
-            <div ng-show="mainCtrl.username">
+            <div ng-show="mainCtrl.loggedIn">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown">{{mainCtrl.username}} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{mainCtrl.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ng-href="#" ng-click="mainCtrl.logOut()">Log Out</a></li>
+                            <li><a href="#" ng-click="mainCtrl.logOut()">Log Out</a></li>
                         </ul>
                     </li>
                 </ul>

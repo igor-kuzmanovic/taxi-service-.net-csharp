@@ -3,9 +3,19 @@
     var self = this;
     self.logOut = logOut;
 
-    function logOut() {
-        delete self.username;
-        $location.path('/');
+    function logOut() {      
+        UserService.logOut()
+            .then(
+                function (response) {
+                    delete self.loggedIn;
+                    delete self.username;
+                    $http.defaults.headers.common['Authorization'] = null;
+                    $location.path('/Login');
+                },
+                function (response) {
+                    self.error = response.data.message;
+                }
+            );
     }
 
 }]);

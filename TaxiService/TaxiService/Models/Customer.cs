@@ -7,6 +7,6 @@ namespace TaxiService.Models
 {
     public class Customer : ApplicationUser
     {
-        public int CustomerId { get; set; }
+        public UserRole Role { get; set; } = UserRole.Customer;
     }
 }

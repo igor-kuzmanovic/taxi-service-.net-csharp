@@ -1,4 +1,4 @@
-﻿app.controller('RegistrationController', ['$scope', '$location', 'UserService', function ($scope, $location, UserService) {
+﻿app.controller('RegistrationController', ['$scope', '$location', 'CustomerService', function ($scope, $location, CustomerService) {
 
     var self = this;
     self.submit = submit;
@@ -6,28 +6,34 @@
     init();
 
     function init() {
-        if ($scope.mainCtrl.username) {
+        if ($scope.mainCtrl.loggedIn) {
             $location.path('/Home');
         }
     }
 
     function submit() {
+        delete self.error;
+        self.form.username.$setDirty();
+        self.form.password.$setDirty();
+        self.form.email.$setDirty();
+
         if (!self.form.$valid) {
             return;
         }
 
         var user = {
             username: self.username,
-            password: self.password
+            password: self.password,
+            email: self.email
         }
 
-        UserService.createCustomer(user)
+        CustomerService.create(user)
             .then(
                 function (response) {
-                    alert(response.data.customerId);;
+                    $location.path('/Login');
                 },
                 function (response) {
-                    alert(response.data.message);
+                    self.error = response.data.message;
                 }
             );
     }

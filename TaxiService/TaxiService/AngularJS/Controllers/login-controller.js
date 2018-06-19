@@ -6,18 +6,31 @@
     init();
 
     function init() {
-        if ($scope.mainCtrl.username) {
+        if ($scope.mainCtrl.loggedIn) {
             $location.path('/Home');
         }
     }
 
     function submit() {
+        delete self.error;
+        self.form.username.$setDirty();
+        self.form.password.$setDirty();
+
         if (!self.form.$valid) {
             return;
         }
 
-        $scope.mainCtrl.username = self.username
-
-        $location.path('/Home');
+        UserService.logIn(self.username, self.password)
+            .then(
+                function (response) {
+                    $scope.mainCtrl.loggedIn = true;
+                    $scope.mainCtrl.username = self.username;
+                    $location.path('/Home');
+                },
+                function (response) {
+                    $http.defaults.headers.common['Authorization'] = null;
+                    self.error = response.data.message;
+                }
+            );
     }
 }]);

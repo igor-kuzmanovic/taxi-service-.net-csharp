@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace TaxiService.Models
+namespace TaxiService.DTOs
 {
-    public class ApplicationUser
+    public class ApplicationUserDto
     {
         public int Id { get; set; }
 
