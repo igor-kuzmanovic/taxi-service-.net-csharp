@@ -10,6 +10,7 @@ namespace TaxiService.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(TaxiService.DAL.ApplicationContext context)
