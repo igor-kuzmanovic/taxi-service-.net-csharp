@@ -10,10 +10,10 @@ namespace TaxiService.Models
     {
         public AppDbContext() : base("DefaultConnection") { }
 
-        public DbSet<AppUser> AppUsers;
-        public DbSet<Ride> Rides;
-        public DbSet<Location> Locations;
-        public DbSet<Vehicle> Vehicles;
-        public DbSet<Comment> Comments;
+        public DbSet<AppUser> AppUsers { get; set; }
+        //public DbSet<Ride> Rides { get; set; }
+        //public DbSet<Location> Locations { get; set; }
+        //public DbSet<Vehicle> Vehicles { get; set; }
+        //public DbSet<Comment> Comments { get; set; }
     }
 }

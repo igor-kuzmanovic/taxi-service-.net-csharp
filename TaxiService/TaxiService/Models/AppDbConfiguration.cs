@@ -11,6 +11,7 @@ namespace TaxiService.Models
         public AppDbConfiguration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(AppDbContext context)
