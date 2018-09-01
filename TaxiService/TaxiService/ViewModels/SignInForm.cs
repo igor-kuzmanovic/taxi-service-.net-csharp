@@ -8,15 +8,15 @@ namespace TaxiService.ViewModels
 {
     public class SignInForm
     {
+        public SignInForm() { }
+
         [Required]
-        [MinLength(3)]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [MinLength(3)]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string Password { get; set; }
     }
 }
