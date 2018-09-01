@@ -84,15 +84,10 @@ namespace TaxiService.Controllers
                     dbUser.Phone = userForm.Phone;
                     dbUser.Email = userForm.Email;
                     db.SaveChanges();
+                }
 
-                    ViewBag.User = user;
-                    return RedirectToAction("UserEditForm");
-                }
-                else
-                {
-                    ViewBag.User = user;
-                    return RedirectToAction("Home");
-                }
+                ViewBag.User = user;
+                return RedirectToAction("Home");
             }
         }
     }
