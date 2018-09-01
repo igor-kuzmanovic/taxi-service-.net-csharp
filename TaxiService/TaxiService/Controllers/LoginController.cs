@@ -42,7 +42,7 @@ namespace TaxiService.Controllers
                 if (!ModelState.IsValid)
                 {
                     ViewBag.User = user;
-                    return View("Index", userForm);
+                    return View("SignInForm", userForm);
                 }
 
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
@@ -55,11 +55,11 @@ namespace TaxiService.Controllers
                 else
                 {
                     ViewBag.User = user;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("SignInForm");
                 }
 
                 ViewBag.User = user;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Home", "Home");
             }
         }
 
@@ -71,7 +71,7 @@ namespace TaxiService.Controllers
             Session["User"] = user;
 
             ViewBag.User = user;
-            return RedirectToAction("Index");
+            return RedirectToAction("SignInForm");
         }
     }
 }

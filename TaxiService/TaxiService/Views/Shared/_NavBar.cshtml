@@ -20,6 +20,7 @@
                 @if (ViewBag.User.IsLoggedIn)
                 {
                     <li>@Html.ActionLink("Home", "Home", "Home")</li>
+                    <li>@Html.ActionLink("Profile", "UserEditForm", "Home")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">

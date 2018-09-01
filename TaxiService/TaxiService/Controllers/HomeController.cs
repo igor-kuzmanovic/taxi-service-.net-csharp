@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TaxiService.Models;
+using TaxiService.ViewModels;
 
 namespace TaxiService.Controllers
 {
@@ -25,6 +26,59 @@ namespace TaxiService.Controllers
 
             ViewBag.User = user;
             return View();
+        }
+
+        public ActionResult UserEditForm()
+        {
+            AppUser user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                user = new AppUser();
+                Session["User"] = user;
+            }
+
+            ViewBag.User = user;
+            return View();
+        }
+
+        public ActionResult UserEdit(UserEditForm userForm)
+        {
+            using (var db = new AppDbContext())
+            {
+                AppUser user = (AppUser)Session["User"];
+                if (user == null)
+                {
+                    user = new AppUser();
+                    Session["User"] = user;
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.User = user;
+                    return View("UserEditForm", userForm);
+                }
+
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == userForm.Id);
+                if (dbUser != null)
+                {
+                    dbUser.Password = userForm.Password;
+                    dbUser.FirstName = userForm.FirstName;
+                    dbUser.LastName = userForm.LastName;
+                    dbUser.Gender = userForm.Gender;
+                    dbUser.UMCN = userForm.UMCN;
+                    dbUser.Phone = userForm.Phone;
+                    dbUser.Email = userForm.Email;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ViewBag.User = user;
+                    return RedirectToAction("Home");
+                }
+
+                ViewBag.User = user;
+                return RedirectToAction("UserEditForm");
+            }
         }
     }
 }
