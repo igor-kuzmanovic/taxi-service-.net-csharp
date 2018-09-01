@@ -18,8 +18,6 @@ namespace TaxiService.Models
     {
         [Display(Name = "Driver")]
         Driver,
-        [Display(Name = "Customer")]
-        Customer,
         [Display(Name = "Dispatcher")]
         Dispatcher
     }
