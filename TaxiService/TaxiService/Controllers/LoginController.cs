@@ -12,17 +12,55 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return null;
+            AppUser user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                user = new AppUser();
+                Session["User"] = user;
+            }
+
+            ViewBag.User = user;
+            return View();
         }
 
         public ActionResult SignIn(SignInForm userForm)
         {
-            return null;
+            using (var db = new AppDbContext())
+            {
+                AppUser user = (AppUser)Session["User"];
+                if (user == null)
+                {
+                    user = new AppUser();
+                    Session["User"] = user;
+                }
+
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
+                if (dbUser != null)
+                {
+                    user.Id = dbUser.Id;
+                    user.Username = userForm.Username;
+                    user.IsLoggedIn = true;
+                }
+                else
+                {
+                    ViewBag.User = user;
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.User = user;
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult SignOut()
         {
-            return null;
+            Session.Abandon();
+
+            AppUser user = new AppUser();
+            Session["User"] = user;
+
+            ViewBag.User = user;
+            return RedirectToAction("Index");
         }
     }
 }
