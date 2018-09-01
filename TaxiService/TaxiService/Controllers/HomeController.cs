@@ -11,6 +11,11 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
+            return RedirectToAction("Home");
+        }
+
+        public ActionResult Home()
+        {
             AppUser user = (AppUser)Session["User"];
             if (user == null)
             {

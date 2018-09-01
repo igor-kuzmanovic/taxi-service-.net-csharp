@@ -6,23 +6,33 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("Taxi Service", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav"></ul>
             @if (ViewBag.User.IsLoggedIn)
             {
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Sign Out", "SignOut", "Login")</li>
-                </ul>
+                @Html.ActionLink("Taxi Service", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
             }
             else
             {
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Sign In", "Index", "Login")</li>
-                    <li>@Html.ActionLink("Sign Up", "SignUpForm", "Login")</li>
-                </ul>
+                @Html.ActionLink("Taxi Service", "SignInForm", "Login", new { area = "" }, new { @class = "navbar-brand" })
             }
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @if (ViewBag.User.IsLoggedIn)
+                {
+                    <li>@Html.ActionLink("Home", "Home", "Home")</li>
+                }
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @if (ViewBag.User.IsLoggedIn)
+                {
+                    <li>@Html.ActionLink("Sign Out", "SignOut", "Login")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Sign In", "SignInForm", "Login")</li>
+                    <li>@Html.ActionLink("Sign Up", "SignUpForm", "Login")</li>
+                }
+            </ul>
         </div>
     </div>
 </div>

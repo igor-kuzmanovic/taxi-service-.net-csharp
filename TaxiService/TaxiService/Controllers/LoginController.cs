@@ -12,6 +12,11 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
+            return RedirectToAction("SignInForm");
+        }
+
+        public ActionResult SignInForm()
+        {
             AppUser user = (AppUser)Session["User"];
             if (user == null)
             {
@@ -47,6 +52,12 @@ namespace TaxiService.Controllers
                     Session["User"] = user;
                 }
 
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.User = user;
+                    return View("SignUpForm", userForm);
+                }
+
                 var newUser = new AppUser() { Username = userForm.Username, Password = userForm.Password };
                 var dbUser = db.AppUsers.Add(newUser);
                 db.SaveChanges();
@@ -65,6 +76,12 @@ namespace TaxiService.Controllers
                 {
                     user = new AppUser();
                     Session["User"] = user;
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.User = user;
+                    return View("Index", userForm);
                 }
 
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
