@@ -3,5 +3,13 @@
     ViewBag.Title = "Home";
 }
 
-<h2>Home</h2>
+@if (ViewBag.User.IsLoggedIn)
+{
+    <h2>Welcome, @ViewBag.User.Username</h2>
+}
+else
+{
+    <h2>Please sign in to view this page!</h2>
+    <a href="~/Login/SignInForm">Sign In</a>
+}
 

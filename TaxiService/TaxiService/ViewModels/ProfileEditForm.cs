@@ -7,11 +7,11 @@ using TaxiService.Models;
 
 namespace TaxiService.ViewModels
 {
-    public class UserEditForm
+    public class ProfileEditForm
     {
-        public UserEditForm() { }
+        public ProfileEditForm() { }
 
-        public UserEditForm(AppUser appUser)
+        public ProfileEditForm(AppUser appUser)
         {
             Id = appUser.Id;
             Password = appUser.Password;

@@ -28,7 +28,7 @@ namespace TaxiService.Controllers
             return View();
         }
 
-        public ActionResult UserEditForm()
+        public ActionResult ProfileEditForm()
         {
             using (var db = new AppDbContext())
             {
@@ -43,10 +43,10 @@ namespace TaxiService.Controllers
 
                 if (dbUser != null)
                 {
-                    var userForm = new UserEditForm(dbUser);
+                    var profileEditForm = new ProfileEditForm(dbUser);
 
                     ViewBag.User = user;
-                    return View(userForm);
+                    return View(profileEditForm);
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult UserEdit(UserEditForm userForm)
+        public ActionResult ProfileEdit(ProfileEditForm profileEditForm)
         {
             using (var db = new AppDbContext())
             {
@@ -70,19 +70,19 @@ namespace TaxiService.Controllers
                 if (!ModelState.IsValid)
                 {
                     ViewBag.User = user;
-                    return View("UserEditForm", userForm);
+                    return View("UserEditForm", profileEditForm);
                 }
 
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == userForm.Id);
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == profileEditForm.Id);
                 if (dbUser != null)
                 {
-                    dbUser.Password = userForm.Password;
-                    dbUser.FirstName = userForm.FirstName;
-                    dbUser.LastName = userForm.LastName;
-                    dbUser.Gender = userForm.Gender;
-                    dbUser.UMCN = userForm.UMCN;
-                    dbUser.Phone = userForm.Phone;
-                    dbUser.Email = userForm.Email;
+                    dbUser.Password = profileEditForm.Password;
+                    dbUser.FirstName = profileEditForm.FirstName;
+                    dbUser.LastName = profileEditForm.LastName;
+                    dbUser.Gender = profileEditForm.Gender;
+                    dbUser.UMCN = profileEditForm.UMCN;
+                    dbUser.Phone = profileEditForm.Phone;
+                    dbUser.Email = profileEditForm.Email;
                     db.SaveChanges();
                 }
 

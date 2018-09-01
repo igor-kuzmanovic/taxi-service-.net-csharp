@@ -1,11 +1,11 @@
-﻿@model TaxiService.ViewModels.UserEditForm
+﻿@model TaxiService.ViewModels.ProfileEditForm
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Profile Edit";
 }
 
 @if (ViewBag.User.IsLoggedIn)
 {
-    using (Html.BeginForm("UserEdit", "Home", FormMethod.Post))
+    using (Html.BeginForm("ProfileEdit", "Home", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
