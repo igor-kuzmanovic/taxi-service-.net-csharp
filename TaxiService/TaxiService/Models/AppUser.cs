@@ -9,6 +9,11 @@ namespace TaxiService.Models
 {
     public class AppUser
     {
+        public AppUser()
+        {
+            Rides = new HashSet<Ride>();
+        }
+
         public int Id { get; set; }
 
         public string Username { get; set; }
@@ -31,10 +36,10 @@ namespace TaxiService.Models
 
         public UserRole? UserRole { get; set; }
 
-        //public ICollection<Ride> Rides { get; set; }
+        public ICollection<Ride> Rides { get; set; }
 
-        //public Location Location { get; set; }
+        public Location Location { get; set; }
 
-        //public Vehicle Vehicle { get; set; }
+        public Vehicle Vehicle { get; set; }
     }
 }

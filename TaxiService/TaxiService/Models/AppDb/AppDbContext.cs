@@ -14,10 +14,9 @@ namespace TaxiService.Models
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
-
-        //public DbSet<Ride> Rides { get; set; }
-        //public DbSet<Location> Locations { get; set; }
-        //public DbSet<Vehicle> Vehicles { get; set; }
-        //public DbSet<Comment> Comments { get; set; }
+        public DbSet<Ride> Rides { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
