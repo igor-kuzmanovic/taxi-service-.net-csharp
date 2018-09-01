@@ -8,7 +8,10 @@ namespace TaxiService.Models
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext() : base("name=DefaultConnection") { }
+        public AppDbContext() : base("name=DefaultConnection")
+        {
+            Database.SetInitializer(new AppDbInitializer());
+        }
 
         public DbSet<AppUser> AppUsers { get; set; }
 

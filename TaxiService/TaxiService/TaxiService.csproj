@@ -172,8 +172,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AppDbConfiguration.cs" />
-    <Compile Include="Models\AppDbContext.cs" />
+    <Compile Include="Models\AppDb\AppDbConfiguration.cs" />
+    <Compile Include="Models\AppDb\AppDbInitializer.cs" />
+    <Compile Include="Models\AppDb\AppDbContext.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Models\Ride.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\SignUpForm.cs" />
     <Compile Include="ViewModels\SignInForm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +223,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\SignUpForm.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

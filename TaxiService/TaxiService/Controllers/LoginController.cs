@@ -23,6 +23,39 @@ namespace TaxiService.Controllers
             return View();
         }
 
+        public ActionResult SignUpForm()
+        {
+            AppUser user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                user = new AppUser();
+                Session["User"] = user;
+            }
+
+            ViewBag.User = user;
+            return View();
+        }
+
+        public ActionResult SignUp(SignUpForm userForm)
+        {
+            using (var db = new AppDbContext())
+            {
+                AppUser user = (AppUser)Session["User"];
+                if (user == null)
+                {
+                    user = new AppUser();
+                    Session["User"] = user;
+                }
+
+                var newUser = new AppUser() { Username = userForm.Username, Password = userForm.Password };
+                var dbUser = db.AppUsers.Add(newUser);
+                db.SaveChanges();
+
+                ViewBag.User = user;
+                return RedirectToAction("Index");
+            }
+        }
+
         public ActionResult SignIn(SignInForm userForm)
         {
             using (var db = new AppDbContext())

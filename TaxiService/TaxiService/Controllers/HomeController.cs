@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TaxiService.Models;
 
 namespace TaxiService.Controllers
 {
@@ -10,6 +11,14 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
+            AppUser user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                user = new AppUser();
+                Session["User"] = user;
+            }
+
+            ViewBag.User = user;
             return View();
         }
     }
