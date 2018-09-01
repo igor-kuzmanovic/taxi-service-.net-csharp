@@ -10,6 +10,7 @@ namespace TaxiService.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public AppUser Driver { get; set; }
 
         public int? Year { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,7 @@ namespace TaxiService.Models
 
         public AppUser Commenter { get; set; }
 
+        [Required]
         public Ride Ride { get; set; }
 
         public int? Rating { get; set; }
