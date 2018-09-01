@@ -51,15 +51,15 @@ namespace TaxiService.Controllers
                     user.Id = dbUser.Id;
                     user.Username = userForm.Username;
                     user.IsLoggedIn = true;
+
+                    ViewBag.User = user;
+                    return RedirectToAction("Home", "Home");
                 }
                 else
                 {
                     ViewBag.User = user;
                     return RedirectToAction("SignInForm");
                 }
-
-                ViewBag.User = user;
-                return RedirectToAction("Home", "Home");
             }
         }
 

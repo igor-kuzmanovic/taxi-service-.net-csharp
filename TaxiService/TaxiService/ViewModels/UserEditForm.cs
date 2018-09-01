@@ -8,6 +8,18 @@ namespace TaxiService.ViewModels
 {
     public class UserEditForm
     {
+        public UserEditForm(AppUser appUser)
+        {
+            Id = appUser.Id;
+            Password = appUser.Password;
+            FirstName = appUser.FirstName;
+            LastName = appUser.LastName;
+            Gender = appUser.Gender;
+            UMCN = appUser.UMCN;
+            Phone = appUser.Phone;
+            Email = appUser.Email;
+        }
+
         public int Id { get; set; }
 
         public string Password { get; set; }

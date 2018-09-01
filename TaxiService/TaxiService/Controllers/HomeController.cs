@@ -30,15 +30,30 @@ namespace TaxiService.Controllers
 
         public ActionResult UserEditForm()
         {
-            AppUser user = (AppUser)Session["User"];
-            if (user == null)
+            using (var db = new AppDbContext())
             {
-                user = new AppUser();
-                Session["User"] = user;
-            }
+                AppUser user = (AppUser)Session["User"];
+                if (user == null)
+                {
+                    user = new AppUser();
+                    Session["User"] = user;
+                }
 
-            ViewBag.User = user;
-            return View();
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+
+                if (dbUser != null)
+                {
+                    var userForm = new UserEditForm(dbUser);
+
+                    ViewBag.User = user;
+                    return View(userForm);
+                }
+                else
+                {
+                    ViewBag.User = user;
+                    return RedirectToAction("Home");
+                }
+            }
         }
 
         public ActionResult UserEdit(UserEditForm userForm)
@@ -69,15 +84,15 @@ namespace TaxiService.Controllers
                     dbUser.Phone = userForm.Phone;
                     dbUser.Email = userForm.Email;
                     db.SaveChanges();
+
+                    ViewBag.User = user;
+                    return RedirectToAction("UserEditForm");
                 }
                 else
                 {
                     ViewBag.User = user;
                     return RedirectToAction("Home");
                 }
-
-                ViewBag.User = user;
-                return RedirectToAction("UserEditForm");
             }
         }
     }
