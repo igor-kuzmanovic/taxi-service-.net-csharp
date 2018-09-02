@@ -1,4 +1,6 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top">
+﻿@using TaxiService.Models
+
+<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,12 +22,16 @@
                 @if (ViewBag.User.IsLoggedIn)
                 {
                     <li>@Html.ActionLink("Home", "Home", "Home")</li>
+                    if (ViewBag.User.UserRole == UserRole.Driver)
+                    {
+                        <li>@Html.ActionLink("Location", "UpdateForm", "Location")</li>
+                    }
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("Profile Edit", "EditForm", "Profile")</li>
                 @if (ViewBag.User.IsLoggedIn)
                 {
+                    <li>@Html.ActionLink("Profile", "EditForm", "Profile")</li>
                     <li>@Html.ActionLink($"{ViewBag.User.Username}, Sign Out", "SignOut", "Login")</li>
                 }
                 else

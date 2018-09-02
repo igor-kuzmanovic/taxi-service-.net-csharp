@@ -43,15 +43,22 @@ namespace TaxiService.Models
 
         public Vehicle Vehicle { get; set; }
 
-        public void Update(ProfileEditForm profileEditForm)
+        public void UpdateProfile(ProfileEditForm form)
         {
-            Password = profileEditForm.Password;
-            FirstName = profileEditForm.FirstName;
-            LastName = profileEditForm.LastName;
-            Gender = profileEditForm.Gender;
-            UMCN = profileEditForm.UMCN;
-            Phone = profileEditForm.Phone;
-            Email = profileEditForm.Email;
+            form = form ?? new ProfileEditForm();
+            Password = form.Password;
+            FirstName = form.FirstName;
+            LastName = form.LastName;
+            Gender = form.Gender;
+            UMCN = form.UMCN;
+            Phone = form.Phone;
+            Email = form.Email;
+        }
+
+        public void UpdateLocation(Location location)
+        {
+            location = location ?? new Location();
+            Location = location;
         }
     }
 }

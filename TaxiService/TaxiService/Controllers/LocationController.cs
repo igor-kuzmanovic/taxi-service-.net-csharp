@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,14 +8,14 @@ using TaxiService.ViewModels;
 
 namespace TaxiService.Controllers
 {
-    public class ProfileController : Controller
+    public class LocationController : Controller
     {
         public ActionResult Index()
         {
             return RedirectToAction("EditForm");
         }
 
-        public ActionResult EditForm()
+        public ActionResult UpdateForm()
         {
             using (var db = new AppDbContext())
             {
@@ -31,9 +30,9 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var editForm = new ProfileEditForm(dbUser);
+                    var updateForm = new LocationUpdateForm(dbUser.Location);
 
-                    return View(editForm);
+                    return View(updateForm);
                 }
                 else
                 {
@@ -42,7 +41,7 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult Edit(ProfileEditForm editForm)
+        public ActionResult Update(LocationUpdateForm updateForm)
         {
             using (var db = new AppDbContext())
             {
@@ -55,14 +54,25 @@ namespace TaxiService.Controllers
                 ViewBag.User = user;
 
                 if (!ModelState.IsValid)
-                {                   
-                    return View("EditForm", editForm);
+                {
+                    return View("UpdateForm", updateForm);
                 }
 
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    dbUser.UpdateProfile(editForm);
+                    var newLocation = new Location(updateForm);
+                    var dbLocation = db.Locations.SingleOrDefault(l => l.Equals(newLocation));
+
+                    if (dbLocation != null)
+                    {
+                        dbUser.UpdateLocation(dbLocation);
+                    }
+                    else
+                    {
+                        dbUser.UpdateLocation(newLocation);
+                    }
+
                     db.SaveChanges();
                 }
 

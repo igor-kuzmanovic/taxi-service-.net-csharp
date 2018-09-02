@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -18,7 +19,7 @@ namespace TaxiService.ViewModels
             Password = appUser.Password;
             FirstName = appUser.FirstName;
             LastName = appUser.LastName;
-            Gender = appUser.Gender.HasValue ? appUser.Gender.Value : Gender.Male;
+            Gender = appUser.Gender ?? Gender.Male;
             UMCN = appUser.UMCN;
             Phone = appUser.Phone;
             Email = appUser.Email;
@@ -28,7 +29,6 @@ namespace TaxiService.ViewModels
         public int Id { get; set; }
 
         [Required]
-        [Editable(false)]
         [StringLength(100)]
         public string Username { get; set; }
 
