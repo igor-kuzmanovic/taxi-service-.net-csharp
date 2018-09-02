@@ -20,13 +20,13 @@
                 @if (ViewBag.User.IsLoggedIn)
                 {
                     <li>@Html.ActionLink("Home", "Home", "Home")</li>
-                    <li>@Html.ActionLink("Profile Edit", "ProfileEditForm", "Home")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Profile Edit", "EditForm", "Profile")</li>
                 @if (ViewBag.User.IsLoggedIn)
                 {
-                    <li>@Html.ActionLink("Sign Out", "SignOut", "Login")</li>
+                    <li>@Html.ActionLink($"{ViewBag.User.Username}, Sign Out", "SignOut", "Login")</li>
                 }
                 else
                 {
