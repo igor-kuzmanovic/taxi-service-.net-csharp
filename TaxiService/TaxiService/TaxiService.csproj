@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RideController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +186,7 @@
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LocationUpdateForm.cs" />
+    <Compile Include="ViewModels\RideCreateForm.cs" />
     <Compile Include="ViewModels\SignInForm.cs" />
     <Compile Include="ViewModels\ProfileEditForm.cs" />
   </ItemGroup>
@@ -231,6 +233,7 @@
     <Content Include="Views\Profile\EditForm.cshtml" />
     <Content Include="Views\Location\UpdateForm.cshtml" />
     <Content Include="Views\Location\Select.cshtml" />
+    <Content Include="Views\Ride\CreateForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

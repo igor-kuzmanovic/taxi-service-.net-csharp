@@ -24,8 +24,8 @@ namespace TaxiService.Models
 
     public enum VehicleType
     {
-        [Display(Name = "Unknown")]
-        Unknown,
+        [Display(Name = "Any")]
+        Any,
         [Display(Name = "Car")]
         Car,
         [Display(Name = "Van")]

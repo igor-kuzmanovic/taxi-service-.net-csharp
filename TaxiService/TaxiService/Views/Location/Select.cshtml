@@ -3,7 +3,7 @@
     ViewBag.Title = "Location Select";
 }
 
-@if (ViewBag.User.IsLoggedIn)
+@if (Session["User"] != null)
 {
     <h4>Location Select</h4>
     <table class="table">

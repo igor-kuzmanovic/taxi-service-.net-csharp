@@ -17,14 +17,6 @@ namespace TaxiService.Controllers
 
         public ActionResult Home()
         {
-            var user = (AppUser)Session["User"];
-            if (user == null)
-            {
-                user = new AppUser();
-                Session["User"] = user;
-            }
-            ViewBag.User = user;
-
             return View();
         }
     }

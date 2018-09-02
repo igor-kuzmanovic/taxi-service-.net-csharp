@@ -13,7 +13,7 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("UpdateForm");
+            return RedirectToAction("Select");
         }
 
         public ActionResult Select()
@@ -21,13 +21,6 @@ namespace TaxiService.Controllers
             using (var db = new AppDbContext())
             {
                 var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
@@ -47,13 +40,6 @@ namespace TaxiService.Controllers
             using (var db = new AppDbContext())
             {
                 var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
                 var dbUser = db.AppUsers.Include(u => u.Location).SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
@@ -71,20 +57,13 @@ namespace TaxiService.Controllers
         public ActionResult Update(LocationUpdateForm updateForm)
         {
             using (var db = new AppDbContext())
-            {
-                var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
+            {              
                 if (!ModelState.IsValid)
                 {
                     return View("UpdateForm", updateForm);
                 }
 
+                var user = (AppUser)Session["User"];
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
@@ -117,13 +96,6 @@ namespace TaxiService.Controllers
             using (var db = new AppDbContext())
             {
                 var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {

@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @if (ViewBag.User.IsLoggedIn)
+            @if (Session["User"] != null)
             {
                 @Html.ActionLink("Taxi Service", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
             }
@@ -19,10 +19,14 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                @if (ViewBag.User.IsLoggedIn)
+                @if (Session["User"] != null)
                 {
                     <li>@Html.ActionLink("Home", "Home", "Home")</li>
-                    if (ViewBag.User.UserRole == UserRole.Driver)
+                    if (((AppUser)Session["User"]).UserRole == UserRole.Dispatcher)
+                    {
+                        <li>@Html.ActionLink("Ride", "CreateForm", "Ride")</li>
+                    }
+                    if (((AppUser)Session["User"]).UserRole == UserRole.Driver)
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Location <span class="caret"></span></a>
@@ -35,10 +39,10 @@
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                @if (ViewBag.User.IsLoggedIn)
+                @if (Session["User"] != null)
                 {
                     <li>@Html.ActionLink("Profile", "EditForm", "Profile")</li>
-                    <li>@Html.ActionLink($"{ViewBag.User.Username}, Sign Out", "SignOut", "Login")</li>
+                    <li>@Html.ActionLink($"{((AppUser)Session["User"]).Username}, Sign Out", "SignOut", "Login")</li>
                 }
                 else
                 {

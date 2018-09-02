@@ -3,7 +3,7 @@
     ViewBag.Title = "Profile Edit";
 }
 
-@if (ViewBag.User.IsLoggedIn)
+@if (Session["User"] != null)
 {
     using (Html.BeginForm("Edit", "Profile", FormMethod.Post))
     {

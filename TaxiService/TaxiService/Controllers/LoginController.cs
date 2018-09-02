@@ -17,14 +17,6 @@ namespace TaxiService.Controllers
 
         public ActionResult SignInForm()
         {
-            var user = (AppUser)Session["User"];
-            if (user == null)
-            {
-                user = new AppUser();
-                Session["User"] = user;
-            }
-            ViewBag.User = user;
-
             return View();
         }       
 
@@ -32,14 +24,6 @@ namespace TaxiService.Controllers
         {
             using (var db = new AppDbContext())
             {
-                var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
                 if (!ModelState.IsValid)
                 {
                     return View("SignInForm", userForm);
@@ -48,7 +32,9 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
                 if (dbUser != null)
                 {
+                    var user = new AppUser();
                     user.GetSignedInUserData(dbUser);
+                    Session["User"] = user;
 
                     return RedirectToAction("Home", "Home");
                 }
@@ -62,9 +48,7 @@ namespace TaxiService.Controllers
         public ActionResult SignOut()
         {
             Session.Abandon();
-            AppUser user = new AppUser();
-            Session["User"] = user;
-            ViewBag.User = user;
+            Session["User"] = null;
 
             return RedirectToAction("SignInForm");
         }

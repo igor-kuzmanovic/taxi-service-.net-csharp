@@ -1,11 +1,11 @@
-﻿
+﻿@using TaxiService.Models
 @{
     ViewBag.Title = "Home";
 }
 
-@if (ViewBag.User.IsLoggedIn)
+@if (Session["User"] != null)
 {
-    <h2>Welcome, @ViewBag.User.FirstName @ViewBag.User.LastName</h2>
+<h2>Welcome, @((AppUser)Session["User"]).FirstName ((AppUser)Session["User"]).LastName</h2>
 }
 else
 {

@@ -22,8 +22,6 @@ namespace TaxiService.Models
 
         public string Password { get; set; }
 
-        public bool IsLoggedIn { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -49,7 +47,6 @@ namespace TaxiService.Models
             appUser = appUser ?? new AppUser();
             Id = appUser.Id;
             Username = appUser.Username;
-            IsLoggedIn = true;
             FirstName = appUser.FirstName;
             LastName = appUser.LastName;
             UserRole = appUser.UserRole;

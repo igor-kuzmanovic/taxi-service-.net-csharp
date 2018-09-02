@@ -21,13 +21,6 @@ namespace TaxiService.Controllers
             using (var db = new AppDbContext())
             {
                 var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
@@ -45,25 +38,19 @@ namespace TaxiService.Controllers
         public ActionResult Edit(ProfileEditForm editForm)
         {
             using (var db = new AppDbContext())
-            {
-                var user = (AppUser)Session["User"];
-                if (user == null)
-                {
-                    user = new AppUser();
-                    Session["User"] = user;
-                }
-                ViewBag.User = user;
-
+            {               
                 if (!ModelState.IsValid)
                 {                   
                     return View("EditForm", editForm);
                 }
 
+                var user = (AppUser)Session["User"];
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    dbUser.UpdateProfile(editForm);
+                    dbUser.UpdateProfile(editForm);                    
                     db.SaveChanges();
+                    Session["User"] = dbUser;
                 }
 
                 return RedirectToAction("Home", "Home");
