@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TaxiService.ViewModels;
 
 namespace TaxiService.Models
 {
@@ -41,5 +42,16 @@ namespace TaxiService.Models
         public Location Location { get; set; }
 
         public Vehicle Vehicle { get; set; }
+
+        public void Update(ProfileEditForm profileEditForm)
+        {
+            Password = profileEditForm.Password;
+            FirstName = profileEditForm.FirstName;
+            LastName = profileEditForm.LastName;
+            Gender = profileEditForm.Gender;
+            UMCN = profileEditForm.UMCN;
+            Phone = profileEditForm.Phone;
+            Email = profileEditForm.Email;
+        }
     }
 }

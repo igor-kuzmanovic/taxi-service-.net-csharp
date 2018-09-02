@@ -62,13 +62,7 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == editForm.Id);
                 if (dbUser != null)
                 {
-                    dbUser.Password = editForm.Password;
-                    dbUser.FirstName = editForm.FirstName;
-                    dbUser.LastName = editForm.LastName;
-                    dbUser.Gender = editForm.Gender;
-                    dbUser.UMCN = editForm.UMCN;
-                    dbUser.Phone = editForm.Phone;
-                    dbUser.Email = editForm.Email;
+                    dbUser.Update(editForm);
                     db.SaveChanges();
                 }
 

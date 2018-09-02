@@ -14,6 +14,7 @@ namespace TaxiService.ViewModels
         public ProfileEditForm(AppUser appUser)
         {
             Id = appUser.Id;
+            Username = appUser.Username;
             Password = appUser.Password;
             FirstName = appUser.FirstName;
             LastName = appUser.LastName;
@@ -25,6 +26,11 @@ namespace TaxiService.ViewModels
 
         [Required]
         public int Id { get; set; }
+
+        [Required]
+        [Editable(false)]
+        [StringLength(100)]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
