@@ -32,7 +32,7 @@ namespace TaxiService.Controllers
         {
             using (var db = new AppDbContext())
             {
-                AppUser user = (AppUser)Session["User"];
+                var user = (AppUser)Session["User"];
                 if (user == null)
                 {
                     user = new AppUser();
@@ -48,9 +48,7 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
                 if (dbUser != null)
                 {
-                    user.Id = dbUser.Id;
-                    user.Username = userForm.Username;
-                    user.IsLoggedIn = true;
+                    user.GetSignedInUserData(dbUser);
 
                     return RedirectToAction("Home", "Home");
                 }

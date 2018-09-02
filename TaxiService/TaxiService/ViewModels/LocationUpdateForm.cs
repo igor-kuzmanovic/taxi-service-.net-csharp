@@ -35,6 +35,7 @@ namespace TaxiService.ViewModels
         public string Street { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue)]
         public int StreetNumber { get; set; }
 
         [Required]
@@ -42,7 +43,7 @@ namespace TaxiService.ViewModels
         public string City { get; set; }
 
         [Required]
-        [Range(5,5)]
+        [Range(10000, 50000)]
         public int PostalCode { get; set; }
     }
 }

@@ -35,16 +35,5 @@ namespace TaxiService.Models
         public string City { get; set; }
 
         public int? PostalCode { get; set; }
-
-        public bool Equals(Location location)
-        {
-            location = location ?? new Location();
-            return Longitude == location.Longitude
-                && Latitude == location.Latitude
-                && Street.ToLower() == location.Street.ToLower()
-                && StreetNumber == location.StreetNumber
-                && City.ToLower() == location.City.ToLower()
-                && PostalCode == location.PostalCode;
-        }
     }
 }

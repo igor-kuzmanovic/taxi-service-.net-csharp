@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using TaxiService.ViewModels;
@@ -37,11 +38,22 @@ namespace TaxiService.Models
 
         public UserRole? UserRole { get; set; }
 
-        public ICollection<Ride> Rides { get; set; }
+        public virtual ICollection<Ride> Rides { get; set; }
 
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
-        public Vehicle Vehicle { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
+
+        public void GetSignedInUserData(AppUser appUser)
+        {
+            appUser = appUser ?? new AppUser();
+            Id = appUser.Id;
+            Username = appUser.Username;
+            IsLoggedIn = true;
+            FirstName = appUser.FirstName;
+            LastName = appUser.LastName;
+            UserRole = appUser.UserRole;
+        }
 
         public void UpdateProfile(ProfileEditForm form)
         {

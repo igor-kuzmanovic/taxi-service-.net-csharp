@@ -20,7 +20,7 @@ namespace TaxiService.Controllers
         {
             using (var db = new AppDbContext())
             {
-                AppUser user = (AppUser)Session["User"];
+                var user = (AppUser)Session["User"];
                 if (user == null)
                 {
                     user = new AppUser();
@@ -46,7 +46,7 @@ namespace TaxiService.Controllers
         {
             using (var db = new AppDbContext())
             {
-                AppUser user = (AppUser)Session["User"];
+                var user = (AppUser)Session["User"];
                 if (user == null)
                 {
                     user = new AppUser();

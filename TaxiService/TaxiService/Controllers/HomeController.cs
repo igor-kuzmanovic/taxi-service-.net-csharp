@@ -17,7 +17,7 @@ namespace TaxiService.Controllers
 
         public ActionResult Home()
         {
-            AppUser user = (AppUser)Session["User"];
+            var user = (AppUser)Session["User"];
             if (user == null)
             {
                 user = new AppUser();

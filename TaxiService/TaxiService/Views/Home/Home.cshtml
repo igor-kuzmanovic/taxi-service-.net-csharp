@@ -5,7 +5,7 @@
 
 @if (ViewBag.User.IsLoggedIn)
 {
-    <h2>Welcome, @ViewBag.User.Username</h2>
+    <h2>Welcome, @ViewBag.User.FirstName @ViewBag.User.LastName</h2>
 }
 else
 {

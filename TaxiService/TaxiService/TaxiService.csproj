@@ -229,7 +229,8 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Profile\EditForm.cshtml" />
-    <Content Include="Views\Location\EditForm.cshtml" />
+    <Content Include="Views\Location\UpdateForm.cshtml" />
+    <Content Include="Views\Location\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
