@@ -31,7 +31,7 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var locations = db.Locations.ToList();
+                    var locations = db.Locations.Where(l => l.Id != dbUser.Location.Id).ToList();
 
                     return View(locations);
                 }
