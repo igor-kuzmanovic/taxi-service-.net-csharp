@@ -97,7 +97,19 @@ namespace TaxiService.Controllers
 
         public ActionResult SuccessForm(int id)
         {
-            return RedirectToAction("Home", "Home");
+            using (var db = new AppDbContext())
+            {
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    var successForm = new RideSuccessForm(id);
+
+                    return View(successForm);
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
         }
 
         public ActionResult FailForm(int id)
@@ -110,21 +122,51 @@ namespace TaxiService.Controllers
                 {
                     var failForm = new RideFailForm(id);
 
-                    return View();
+                    return View(failForm);
                 }
 
                 return RedirectToAction("Home", "Home");
             }
         }
 
-        public ActionResult Success()
+        public ActionResult Success(RideSuccessForm successForm)
         {
-            return RedirectToAction("Home", "Home");
+            using (var db = new AppDbContext())
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View("SuccessForm", successForm);
+                }
+
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
         }
 
         public ActionResult Fail(RideFailForm failForm)
         {
-            return RedirectToAction("Home", "Home");
+            using (var db = new AppDbContext())
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View("FailForm", failForm);
+                }
+
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
         }
     }
 }
