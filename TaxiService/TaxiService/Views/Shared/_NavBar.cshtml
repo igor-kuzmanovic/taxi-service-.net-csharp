@@ -35,13 +35,7 @@
                         else
                         {
                             <li>@Html.ActionLink("Vehicle", "EditForm", "Vehicle")</li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Location <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Select", "Select", "Location")</li>
-                                    <li>@Html.ActionLink("Update", "UpdateForm", "Location")</li>
-                                </ul>
-                            </li>
+                            <li>@Html.ActionLink("Location", "UpdateForm", "Location")</li>
                         }
                     }
                 }

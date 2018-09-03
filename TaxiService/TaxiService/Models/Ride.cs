@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TaxiService.ViewModels;
 
 namespace TaxiService.Models
 {
@@ -42,5 +43,20 @@ namespace TaxiService.Models
         public Comment Comment { get; set; }
 
         public RideStatus? Status { get; set; }
+
+        public void Update(RideSuccessForm form)
+        {
+            form = form ?? new RideSuccessForm();
+            Destination = new Location(form);
+            Price = form.Price;
+            Status = RideStatus.Successful;
+        }
+
+        public void Update(RideFailForm form)
+        {
+            form = form ?? new RideFailForm();
+            Comment = new Comment(form, Driver, this);
+            Status = RideStatus.Failed;
+        }
     }
 }

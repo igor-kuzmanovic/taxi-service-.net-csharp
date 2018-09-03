@@ -13,24 +13,7 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Select");
-        }
-
-        public ActionResult Select()
-        {
-            using (var db = new AppDbContext())
-            {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.Include(u => u.Location).SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var locations = db.Locations.Where(l => l.Id != dbUser.Location.Id).ToList();
-
-                    return View(locations);
-                }
-
-                return RedirectToAction("Home", "Home");
-            }
+            return RedirectToAction("UpdateForm");
         }
 
         public ActionResult UpdateForm()
@@ -53,7 +36,7 @@ namespace TaxiService.Controllers
         public ActionResult Update(LocationUpdateForm updateForm)
         {
             using (var db = new AppDbContext())
-            {              
+            {
                 if (!ModelState.IsValid)
                 {
                     return View("UpdateForm", updateForm);
@@ -63,45 +46,12 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var newLocation = new Location(updateForm);
-                    var dbLocation = db.Locations.SingleOrDefault(l => l.Longitude == newLocation.Longitude
-                                                                    && l.Latitude == newLocation.Latitude
-                                                                    && l.Street == newLocation.Street
-                                                                    && l.StreetNumber == newLocation.StreetNumber
-                                                                    && l.City == newLocation.City
-                                                                    && l.PostalCode == newLocation.PostalCode);
-
-                    if (dbLocation != null)
-                    {
-                        dbUser.UpdateLocation(dbLocation);
-                    }
-                    else
-                    {
-                        dbUser.UpdateLocation(newLocation);
-                    }
-
+                    var location = new Location(updateForm);
+                    dbUser.UpdateLocation(location);
+                    var updatedUser = new AppUser();
+                    updatedUser.GetSignedInUserData(dbUser);
+                    Session["User"] = updatedUser;
                     db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
-            }
-        }
-
-        public ActionResult UpdateSelect(int id)
-        {
-            using (var db = new AppDbContext())
-            {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var dbLocation = db.Locations.SingleOrDefault(l => l.Id == id);
-
-                    if (dbLocation != null)
-                    {
-                        dbUser.UpdateLocation(dbLocation);
-                        db.SaveChanges();
-                    }                  
                 }
 
                 return RedirectToAction("Home", "Home");

@@ -48,26 +48,9 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var newLocation = new Location(createForm);
-                    var dbLocation = db.Locations.SingleOrDefault(l => l.Longitude == newLocation.Longitude
-                                                                    && l.Latitude == newLocation.Latitude
-                                                                    && l.Street == newLocation.Street
-                                                                    && l.StreetNumber == newLocation.StreetNumber
-                                                                    && l.City == newLocation.City
-                                                                    && l.PostalCode == newLocation.PostalCode);
+                    var location = new Location(createForm);
                     var driver = db.AppUsers.SingleOrDefault(u => u.Id == createForm.DriverId);
-
-                    var ride = default(Ride);
-
-                    if (dbLocation != null)
-                    {
-                        ride = new Ride(dbLocation, dbUser, createForm.VehicleType, driver);
-                    }
-                    else
-                    {
-                        ride = new Ride(newLocation, dbUser, createForm.VehicleType, driver);
-                    }
-
+                    var ride = new Ride(location, dbUser, createForm.VehicleType, driver);
                     driver.IsDriverBusy = true;
                     db.Rides.Add(ride);
                     db.SaveChanges();
@@ -142,7 +125,15 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    
+                    var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == successForm.RideId);
+                    var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
+                    var location = new Location(successForm);
+                    ride.Update(successForm);
+                    driver.IsDriverBusy = false;
+                    var updatedUser = new AppUser();
+                    updatedUser.GetSignedInUserData(driver);
+                    Session["User"] = updatedUser;
+                    db.SaveChanges();
                 }
 
                 return RedirectToAction("Home", "Home");
@@ -162,7 +153,14 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-
+                    var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == failForm.RideId);
+                    var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
+                    ride.Update(failForm);
+                    driver.IsDriverBusy = false;
+                    var updatedUser = new AppUser();
+                    updatedUser.GetSignedInUserData(driver);
+                    Session["User"] = updatedUser;
+                    db.SaveChanges();
                 }
 
                 return RedirectToAction("Home", "Home");

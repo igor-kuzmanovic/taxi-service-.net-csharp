@@ -6,7 +6,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using TaxiService.Models;
 
 namespace TaxiService
 {
@@ -19,10 +18,6 @@ namespace TaxiService
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            AppDbContext appDbContext = new AppDbContext();
-            appDbContext.Database.Initialize(false);
-            appDbContext.Dispose();
         }
     }
 }
