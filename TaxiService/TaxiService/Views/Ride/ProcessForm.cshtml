@@ -1,75 +1,84 @@
-﻿@using TaxiService.Models
-@model TaxiService.ViewModels.RideProcessForm
+﻿@model TaxiService.ViewModels.RideProcessForm
 @{
     ViewBag.Title = "Ride Process";
 }
 
 @if (Session["User"] != null)
 {
-    <div>
-        <h4>Ride Process</h4>
+    <div class="form-horizontal">
+        <h4>Profile Edit</h4>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderDateTime)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderDateTime)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderLocationLongitude)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderLocationLongitude)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderLocationLatitude)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderLocationLatitude)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderLocationStreet)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderLocationStreet)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderLocationStreetNumber)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderLocationStreetNumber)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderLocationCity)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderLocationCity)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderLocationPostalCode)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OrderLocationPostalCode)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DispatcherFirstName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DispatcherFirstName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DispatcherLastName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DispatcherLastName)
-            </dd>
-        </dl>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderLocationLongitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderLocationLongitude, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderLocationLatitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderLocationLatitude, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderLocationStreet, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderLocationStreet, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderLocationStreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderLocationStreetNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderLocationCity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderLocationCity, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderLocationPostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderLocationPostalCode, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VehicleType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VehicleType, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DispatcherFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DispatcherFirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DispatcherLastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DispatcherLastName, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Success", "SuccessForm", new { id = Model.Id }, new { @class = "btn btn-success" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Fail", "FailForm", new { id = Model.Id }, new { @class = "btn btn-danger" })
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Success", "SuccessForm", new { id = Model.Id }, new { @class = "btn btn-success" })
-        @Html.ActionLink("Fail", "FailForm", new { id = Model.Id }, new { @class = "btn btn-danger" })
-    </p>
 }
 else
 {
