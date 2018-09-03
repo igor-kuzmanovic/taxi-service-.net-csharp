@@ -50,7 +50,7 @@
                 @if (Session["User"] != null)
                 {
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">@{((AppUser)Session["User"]).Username} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">@(((AppUser)Session["User"]).Username) <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Profile", "EditForm", "Profile")</li>
                             <li role="separator" class="divider"></li>
