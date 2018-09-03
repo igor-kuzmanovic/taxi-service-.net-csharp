@@ -85,7 +85,7 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var dbRide = db.Rides.Include(r => r.OrderLocation).Include(r => r.Dispatcher).FirstOrDefault(r => r.Driver.Id == dbUser.Id && r.Status == RideStatus.Formed);
+                    var dbRide = db.Rides.Include(r => r.Source).Include(r => r.Dispatcher).FirstOrDefault(r => r.Driver.Id == dbUser.Id && r.Status == RideStatus.Formed);
                     var processForm = new RideProcessForm(dbRide);
 
                     return View(processForm);
