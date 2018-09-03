@@ -95,22 +95,34 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult ProcessSuccess(int id)
-        {
-            return RedirectToAction("SuccessForm", id);
-        }
-
-        public ActionResult ProcessFail(int id)
-        {
-            return RedirectToAction("FailForm", id);
-        }
-
         public ActionResult SuccessForm(int id)
         {
             return RedirectToAction("Home", "Home");
         }
 
         public ActionResult FailForm(int id)
+        {
+            using (var db = new AppDbContext())
+            {
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    var failForm = new RideFailForm(id);
+
+                    return View();
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
+        }
+
+        public ActionResult Success()
+        {
+            return RedirectToAction("Home", "Home");
+        }
+
+        public ActionResult Fail(RideFailForm failForm)
         {
             return RedirectToAction("Home", "Home");
         }

@@ -4,11 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TaxiService.ViewModels;
 
 namespace TaxiService.Models
 {
     public class Comment
     {
+        public Comment(RideFailForm form, AppUser commenter, Ride ride)
+        {
+            form = form ?? new RideFailForm();
+            commenter = commenter ?? new AppUser();
+            ride = ride ?? new Ride();
+            Description = form.Description;
+            CreationDate = DateTime.Now;
+            Commenter = commenter;
+            Ride = ride;
+            Rating = form.Rating;
+        }
+
         public int Id { get; set; }
 
         public string Description { get; set; }
@@ -20,6 +33,6 @@ namespace TaxiService.Models
         [Required]
         public Ride Ride { get; set; }
 
-        public int? Rating { get; set; }
+        public Rating? Rating { get; set; }
     }
 }
