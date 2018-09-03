@@ -1,0 +1,78 @@
+﻿@using TaxiService.Models
+@model TaxiService.ViewModels.RideProcessForm
+@{
+    ViewBag.Title = "Ride Process";
+}
+
+@if (Session["User"] != null)
+{
+    <div>
+        <h4>Ride Process</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderDateTime)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderDateTime)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderLocationLongitude)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderLocationLongitude)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderLocationLatitude)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderLocationLatitude)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderLocationStreet)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderLocationStreet)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderLocationStreetNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderLocationStreetNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderLocationCity)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderLocationCity)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderLocationPostalCode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.OrderLocationPostalCode)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DispatcherFirstName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DispatcherFirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DispatcherLastName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DispatcherLastName)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Success", "ProcessSuccess", new { id = Model.Id }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Fail", "ProcessFail", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    </p>
+}
+else
+{
+    <h2>Please sign in to view this page!</h2>
+    <a href="~/Login/SignInForm">Sign In</a>
+}

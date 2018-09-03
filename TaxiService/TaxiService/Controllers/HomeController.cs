@@ -23,10 +23,8 @@ namespace TaxiService.Controllers
             {
                 return RedirectToAction("HomeDispatcher");
             }
-            else
-            {
-                return RedirectToAction("HomeDriver");
-            }
+
+            return RedirectToAction("HomeDriver");
         }
 
         public ActionResult HomeDispatcher()

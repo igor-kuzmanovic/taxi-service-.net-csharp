@@ -186,6 +186,7 @@
     <Compile Include="Models\Ride.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RideProcessForm.cs" />
     <Compile Include="ViewModels\VehicleEditForm.cs" />
     <Compile Include="ViewModels\LocationUpdateForm.cs" />
     <Compile Include="ViewModels\RideCreateForm.cs" />
@@ -238,6 +239,7 @@
     <Content Include="Views\Ride\CreateForm.cshtml" />
     <Content Include="Views\Home\HomeDriver.cshtml" />
     <Content Include="Views\Vehicle\EditForm.cshtml" />
+    <Content Include="Views\Ride\ProcessForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

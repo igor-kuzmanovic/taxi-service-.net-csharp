@@ -38,10 +38,8 @@ namespace TaxiService.Controllers
 
                     return RedirectToAction("Home", "Home");
                 }
-                else
-                {                   
-                    return RedirectToAction("SignInForm");
-                }
+
+                return RedirectToAction("SignInForm");
             }
         }
 

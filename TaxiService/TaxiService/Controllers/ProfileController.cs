@@ -28,10 +28,8 @@ namespace TaxiService.Controllers
 
                     return View(editForm);
                 }
-                else
-                {
-                    return RedirectToAction("Home", "Home");
-                }
+
+                return RedirectToAction("Home", "Home");
             }
         }
 

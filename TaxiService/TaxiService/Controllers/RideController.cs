@@ -30,10 +30,8 @@ namespace TaxiService.Controllers
 
                     return View();
                 }
-                else
-                {
-                    return RedirectToAction("Home", "Home");
-                }
+
+                return RedirectToAction("Home", "Home");
             }
         }
 
@@ -77,6 +75,44 @@ namespace TaxiService.Controllers
 
                 return RedirectToAction("Home", "Home");
             }
+        }
+
+        public ActionResult ProcessForm()
+        {
+            using (var db = new AppDbContext())
+            {
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    var dbRide = db.Rides.Include(r => r.OrderLocation).Include(r => r.Dispatcher).FirstOrDefault(r => r.Driver.Id == dbUser.Id && r.Status == RideStatus.Formed);
+                    var processForm = new RideProcessForm(dbRide);
+
+                    return View(processForm);
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
+        }
+
+        public ActionResult ProcessSuccess(int id)
+        {
+            return RedirectToAction("SuccessForm", id);
+        }
+
+        public ActionResult ProcessFail(int id)
+        {
+            return RedirectToAction("FailForm", id);
+        }
+
+        public ActionResult SuccessForm(int id)
+        {
+            return RedirectToAction("Home", "Home");
+        }
+
+        public ActionResult FailForm(int id)
+        {
+            return RedirectToAction("Home", "Home");
         }
     }
 }

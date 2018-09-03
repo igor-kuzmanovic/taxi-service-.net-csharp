@@ -21,18 +21,15 @@ namespace TaxiService.Controllers
             using (var db = new AppDbContext())
             {
                 var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                var dbUser = db.AppUsers.Include(u => u.Location).SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var userLocationId = dbUser.Location.Id;
-                    var locations = db.Locations.Where(l => l.Id != userLocationId).ToList();
+                    var locations = db.Locations.Where(l => l.Id != dbUser.Location.Id).ToList();
 
                     return View(locations);
                 }
-                else
-                {
-                    return RedirectToAction("Home", "Home");
-                }
+
+                return RedirectToAction("Home", "Home");
             }
         }
 
@@ -48,10 +45,8 @@ namespace TaxiService.Controllers
 
                     return View(updateForm);
                 }
-                else
-                {
-                    return RedirectToAction("Home", "Home");
-                }
+
+                return RedirectToAction("Home", "Home");
             }
         }
 
