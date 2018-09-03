@@ -10,8 +10,11 @@ namespace TaxiService.Models
     {
         public Ride() { }
 
-        public Ride(Location location, AppUser dispatcher, VehicleType vehicleType, AppUser driver)
+        public Ride(Location location, AppUser dispatcher, RideVehicleType vehicleType, AppUser driver)
         {
+            location = location ?? new Location();
+            dispatcher = dispatcher ?? new AppUser();
+            driver = driver ?? new AppUser();
             OrderDateTime = DateTime.Now;
             OrderLocation = location;
             VehicleType = vehicleType;
@@ -26,7 +29,7 @@ namespace TaxiService.Models
 
         public Location OrderLocation { get; set; }
 
-        public VehicleType? VehicleType { get; set; }
+        public RideVehicleType? VehicleType { get; set; }
 
         public Location Destination { get; set; }
 

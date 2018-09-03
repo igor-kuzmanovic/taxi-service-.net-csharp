@@ -1,0 +1,15 @@
+﻿@using TaxiService.Models
+@{
+    ViewBag.Title = "Home";
+}
+
+@if (Session["User"] != null)
+{
+<h2>Welcome, @(((AppUser)Session["User"]).FirstName) @(((AppUser)Session["User"]).LastName)</h2>
+}
+else
+{
+    <h2>Please sign in to view this page!</h2>
+    <a href="~/Login/SignInForm">Sign In</a>
+}
+

@@ -24,6 +24,14 @@ namespace TaxiService.Models
 
     public enum VehicleType
     {
+        [Display(Name = "Car")]
+        Car,
+        [Display(Name = "Van")]
+        Van
+    }
+
+    public enum RideVehicleType
+    {
         [Display(Name = "Any")]
         Any,
         [Display(Name = "Car")]

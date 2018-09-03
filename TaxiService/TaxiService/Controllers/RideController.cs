@@ -24,7 +24,7 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var drivers = db.AppUsers.Where(u => u.Role == UserRole.Driver && u.IsDriverBusy.Value).ToList();
+                    var drivers = db.AppUsers.Where(u => u.Role == UserRole.Driver && !u.IsDriverBusy.Value).ToList();
                     var driverList = drivers.Select(d => new SelectListItem { Text = $"{d.FirstName} {d.LastName}", Value = d.Id.ToString() });
                     ViewBag.DriversList = new SelectList(driverList, "Value", "Text");
 

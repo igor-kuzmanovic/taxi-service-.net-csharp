@@ -17,6 +17,25 @@ namespace TaxiService.Controllers
 
         public ActionResult Home()
         {
+            var user = (AppUser)Session["User"];
+
+            if (user.Role == UserRole.Dispatcher)
+            {
+                return RedirectToAction("HomeDispatcher");
+            }
+            else
+            {
+                return RedirectToAction("HomeDriver");
+            }
+        }
+
+        public ActionResult HomeDispatcher()
+        {
+            return View();
+        }
+
+        public ActionResult HomeDriver()
+        {
             return View();
         }
     }

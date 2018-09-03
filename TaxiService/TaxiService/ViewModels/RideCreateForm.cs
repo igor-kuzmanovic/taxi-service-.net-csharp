@@ -35,8 +35,8 @@ namespace TaxiService.ViewModels
         public int PostalCode { get; set; }
 
         [Required]
-        [EnumDataType(typeof(VehicleType))]
-        public VehicleType VehicleType { get; set; }
+        [EnumDataType(typeof(RideVehicleType))]
+        public RideVehicleType VehicleType { get; set; }
 
         [Required]
         public int DriverId { get; set; }

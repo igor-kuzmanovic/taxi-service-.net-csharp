@@ -12,7 +12,7 @@ namespace TaxiService.Models
         protected override void Seed(AppDbContext context)
         {
             context.AppUsers.AddOrUpdate(new AppUser() { Username = "admin", Password = "admin", Role = UserRole.Dispatcher });
-            context.AppUsers.AddOrUpdate(new AppUser() { Username = "driver", Password = "driver", FirstName = "John", LastName = "Doe", Role = UserRole.Driver, IsDriverBusy = false });
+            context.AppUsers.AddOrUpdate(new AppUser() { Username = "driver", Password = "driver", FirstName = "John", LastName = "Doe", Role = UserRole.Driver, IsDriverBusy = false, Vehicle = new Vehicle() });
 
             context.SaveChanges();
         }
