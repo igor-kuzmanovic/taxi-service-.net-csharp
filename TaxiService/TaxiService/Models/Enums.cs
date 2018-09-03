@@ -34,16 +34,8 @@ namespace TaxiService.Models
 
     public enum RideStatus
     {
-        [Display(Name = "Created")]
-        Created,
         [Display(Name = "Formed")]
         Formed,
-        [Display(Name = "Processed")]
-        Processed,
-        [Display(Name = "Accepted")]
-        Accepted,
-        [Display(Name = "Cancelled")]
-        Cancelled,
         [Display(Name = "Failed")]
         Failed,
         [Display(Name = "Successful")]

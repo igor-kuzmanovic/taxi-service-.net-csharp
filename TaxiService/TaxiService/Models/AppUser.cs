@@ -34,7 +34,9 @@ namespace TaxiService.Models
 
         public string Email { get; set; }
 
-        public UserRole? UserRole { get; set; }
+        public UserRole? Role { get; set; }
+
+        public bool? IsDriverBusy { get; set; }
 
         public virtual ICollection<Ride> Rides { get; set; }
 
@@ -49,7 +51,8 @@ namespace TaxiService.Models
             Username = appUser.Username;
             FirstName = appUser.FirstName;
             LastName = appUser.LastName;
-            UserRole = appUser.UserRole;
+            Role = appUser.Role;
+            IsDriverBusy = appUser.IsDriverBusy;
         }
 
         public void UpdateProfile(ProfileEditForm form)

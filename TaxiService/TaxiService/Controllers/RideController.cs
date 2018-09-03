@@ -24,7 +24,7 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    var drivers = db.AppUsers.Where(u => u.UserRole == UserRole.Driver).ToList();
+                    var drivers = db.AppUsers.Where(u => u.Role == UserRole.Driver && u.IsDriverBusy.Value).ToList();
                     var driverList = drivers.Select(d => new SelectListItem { Text = $"{d.FirstName} {d.LastName}", Value = d.Id.ToString() });
                     ViewBag.DriversList = new SelectList(driverList, "Value", "Text");
 
@@ -58,6 +58,7 @@ namespace TaxiService.Controllers
                                                                     && l.City == newLocation.City
                                                                     && l.PostalCode == newLocation.PostalCode);
                     var driver = db.AppUsers.SingleOrDefault(u => u.Id == createForm.DriverId);
+
                     var ride = default(Ride);
 
                     if (dbLocation != null)
@@ -69,6 +70,7 @@ namespace TaxiService.Controllers
                         ride = new Ride(newLocation, dbUser, createForm.VehicleType, driver);
                     }
 
+                    driver.IsDriverBusy = true;
                     db.Rides.Add(ride);
                     db.SaveChanges();
                 }
