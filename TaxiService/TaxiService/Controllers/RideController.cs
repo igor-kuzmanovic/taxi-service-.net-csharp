@@ -25,7 +25,8 @@ namespace TaxiService.Controllers
                 if (dbUser != null)
                 {
                     var drivers = db.AppUsers.Where(u => u.UserRole == UserRole.Driver).ToList();
-                    ViewBag.DriversList = drivers.Select(d => new SelectListItem { Text = $"{d.FirstName} {d.LastName}", Value = d.Id.ToString() });
+                    var driverList = drivers.Select(d => new SelectListItem { Text = $"{d.FirstName} {d.LastName}", Value = d.Id.ToString() });
+                    ViewBag.DriversList = new SelectList(driverList, "Value", "Text");
 
                     return View();
                 }
@@ -33,6 +34,46 @@ namespace TaxiService.Controllers
                 {
                     return RedirectToAction("Home", "Home");
                 }
+            }
+        }
+
+        public ActionResult Create(RideCreateForm createForm)
+        {
+            using (var db = new AppDbContext())
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View("CreateForm", createForm);
+                }
+
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    var newLocation = new Location(createForm);
+                    var dbLocation = db.Locations.SingleOrDefault(l => l.Longitude == newLocation.Longitude
+                                                                    && l.Latitude == newLocation.Latitude
+                                                                    && l.Street == newLocation.Street
+                                                                    && l.StreetNumber == newLocation.StreetNumber
+                                                                    && l.City == newLocation.City
+                                                                    && l.PostalCode == newLocation.PostalCode);
+                    var driver = db.AppUsers.SingleOrDefault(u => u.Id == createForm.DriverId);
+                    var ride = default(Ride);
+
+                    if (dbLocation != null)
+                    {
+                        ride = new Ride(dbLocation, dbUser, createForm.VehicleType, driver);
+                    }
+                    else
+                    {
+                        ride = new Ride(newLocation, dbUser, createForm.VehicleType, driver);
+                    }
+
+                    db.Rides.Add(ride);
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Home", "Home");
             }
         }
     }

@@ -22,6 +22,17 @@ namespace TaxiService.Models
             PostalCode = form.PostalCode;
         }
 
+        public Location(RideCreateForm form)
+        {
+            form = form ?? new RideCreateForm();
+            Longitude = form.Longitude;
+            Latitude = form.Latitude;
+            Street = form.Street;
+            StreetNumber = form.StreetNumber;
+            City = form.City;
+            PostalCode = form.PostalCode;
+        }
+
         public int Id { get; set; }
 
         public double? Longitude { get; set; }
