@@ -13,8 +13,8 @@ namespace TaxiService.Models
         public Ride(Location location, AppUser dispatcher, VehicleType vehicleType, AppUser driver)
         {
             OrderDateTime = DateTime.Now;
+            OrderLocation = location;
             VehicleType = vehicleType;
-            Destination = location;
             Dispatcher = dispatcher;
             Driver = driver;
             Status = RideStatus.Formed;
