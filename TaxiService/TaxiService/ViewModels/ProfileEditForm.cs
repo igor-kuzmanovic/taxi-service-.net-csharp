@@ -14,7 +14,6 @@ namespace TaxiService.ViewModels
 
         public ProfileEditForm(AppUser appUser)
         {
-            appUser = appUser ?? new AppUser();
             Id = appUser.Id;
             Username = appUser.Username;
             Password = appUser.Password;

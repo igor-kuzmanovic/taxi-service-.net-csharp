@@ -189,6 +189,7 @@
     <Compile Include="ViewModels\RideSuccessForm.cs" />
     <Compile Include="ViewModels\RideFailForm.cs" />
     <Compile Include="ViewModels\RideProcessForm.cs" />
+    <Compile Include="ViewModels\RideTableRow.cs" />
     <Compile Include="ViewModels\VehicleEditForm.cs" />
     <Compile Include="ViewModels\LocationUpdateForm.cs" />
     <Compile Include="ViewModels\RideCreateForm.cs" />

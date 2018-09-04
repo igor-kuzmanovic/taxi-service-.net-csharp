@@ -13,7 +13,6 @@ namespace TaxiService.ViewModels
 
         public VehicleEditForm(Vehicle vehicle)
         {
-            vehicle = vehicle ?? new Vehicle();
             Id = vehicle.Id;
             Year = vehicle.Year ?? 0;
             Registration = vehicle.Registration;

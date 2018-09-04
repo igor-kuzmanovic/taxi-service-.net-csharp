@@ -11,71 +11,69 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.OrderDateTime</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.Longitude</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.Latitude</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.Street</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StreetNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.StreetNumber</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.City</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.PostalCode</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.VehicleType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VehicleType, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.VehicleType</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.FirstName</p>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                <p class="form-control-static">@Model.LastName</p>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Success", "SuccessForm", new { id = Model.Id }, new { @class = "btn btn-success" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Fail", "FailForm", new { id = Model.Id }, new { @class = "btn btn-danger" })
+                <div class="btn-group" role="group">
+                    @Html.ActionLink("Success", "SuccessForm", new { id = Model.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Fail", "FailForm", new { id = Model.Id }, new { @class = "btn btn-danger" })
+                </div>
             </div>
         </div>
     </div>

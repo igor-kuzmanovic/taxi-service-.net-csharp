@@ -8,8 +8,6 @@ namespace TaxiService.ViewModels
 {
     public class SignInForm
     {
-        public SignInForm() { }
-
         [Required]
         [StringLength(100)]
         public string Username { get; set; }

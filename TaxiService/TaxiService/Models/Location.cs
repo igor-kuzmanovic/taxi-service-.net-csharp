@@ -13,7 +13,6 @@ namespace TaxiService.Models
 
         public Location(LocationUpdateForm form)
         {
-            form = form ?? new LocationUpdateForm();
             Longitude = form.Longitude;
             Latitude = form.Latitude;
             Street = form.Street;
@@ -24,7 +23,6 @@ namespace TaxiService.Models
 
         public Location(RideCreateForm form)
         {
-            form = form ?? new RideCreateForm();
             Longitude = form.Longitude;
             Latitude = form.Latitude;
             Street = form.Street;
@@ -35,7 +33,6 @@ namespace TaxiService.Models
 
         public Location(RideSuccessForm form)
         {
-            form = form ?? new RideSuccessForm();
             Longitude = form.Longitude;
             Latitude = form.Latitude;
             Street = form.Street;
@@ -57,5 +54,10 @@ namespace TaxiService.Models
         public string City { get; set; }
 
         public int? PostalCode { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Street} {StreetNumber} - {City} {PostalCode} ({Longitude}, {Latitude})";
+        }
     }
 }

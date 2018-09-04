@@ -13,7 +13,6 @@ namespace TaxiService.ViewModels
 
         public RideProcessForm(Ride ride)
         {
-            ride = ride ?? new Ride();
             Id = ride.Id;
             OrderDateTime = ride.OrderDateTime ?? DateTime.Now;
             Longitude = ride.Source.Longitude ?? 0;

@@ -13,9 +13,6 @@ namespace TaxiService.Models
 
         public Ride(Location source, AppUser dispatcher, RideVehicleType vehicleType, AppUser driver)
         {
-            source = source ?? new Location();
-            dispatcher = dispatcher ?? new AppUser();
-            driver = driver ?? new AppUser();
             OrderDateTime = DateTime.Now;
             Source = source;
             VehicleType = vehicleType;
@@ -46,7 +43,6 @@ namespace TaxiService.Models
 
         public void Update(RideSuccessForm form)
         {
-            form = form ?? new RideSuccessForm();
             Destination = new Location(form);
             Price = form.Price;
             Status = RideStatus.Successful;
@@ -54,7 +50,6 @@ namespace TaxiService.Models
 
         public void Update(RideFailForm form)
         {
-            form = form ?? new RideFailForm();
             Comment = new Comment(form, Driver, this);
             Status = RideStatus.Failed;
         }

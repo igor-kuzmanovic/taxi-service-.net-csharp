@@ -13,8 +13,6 @@ namespace TaxiService.Models
 
         public Vehicle(AppUser driver, VehicleEditForm form)
         {
-            driver = driver ?? new AppUser();
-            form = form ?? new VehicleEditForm();
             Driver = driver;
             Year = form.Year;
             Registration = form.Registration;
@@ -37,7 +35,6 @@ namespace TaxiService.Models
 
         public void Update(VehicleEditForm form)
         {
-            form = form ?? new VehicleEditForm();
             Year = form.Year;
             Registration = form.Registration;
             Identification = form.Identification;

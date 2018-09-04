@@ -10,11 +10,10 @@ namespace TaxiService.Models
 {
     public class Comment
     {
+        public Comment() { }
+
         public Comment(RideFailForm form, AppUser commenter, Ride ride)
         {
-            form = form ?? new RideFailForm();
-            commenter = commenter ?? new AppUser();
-            ride = ride ?? new Ride();
             Description = form.Description;
             CreationDate = DateTime.Now;
             Commenter = commenter;

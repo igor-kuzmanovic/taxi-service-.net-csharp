@@ -13,7 +13,6 @@ namespace TaxiService.ViewModels
 
         public LocationUpdateForm(Location location)
         {
-            location = location ?? new Location();
             Longitude = location.Longitude ?? 0;
             Latitude = location.Latitude ?? 0;
             Street = location.Street;
