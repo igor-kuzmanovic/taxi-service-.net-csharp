@@ -13,10 +13,11 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("CreateForm");
+            return RedirectToAction("Create");
         }
 
-        public ActionResult CreateForm()
+        [HttpGet]
+        public ActionResult Create()
         {
             using (var db = new AppDbContext())
             {
@@ -35,13 +36,14 @@ namespace TaxiService.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult Create(RideCreateForm createForm)
         {
             using (var db = new AppDbContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("CreateForm", createForm);
+                    return View("Create", createForm);
                 }
 
                 var user = (AppUser)Session["User"];
@@ -60,7 +62,8 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult ProcessForm()
+        [HttpGet]
+        public ActionResult Process()
         {
             using (var db = new AppDbContext())
             {
@@ -78,7 +81,8 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult SuccessForm(int id)
+        [HttpGet]
+        public ActionResult Success(int id)
         {
             using (var db = new AppDbContext())
             {
@@ -95,30 +99,14 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult FailForm(int id)
-        {
-            using (var db = new AppDbContext())
-            {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var failForm = new RideFailForm(id);
-
-                    return View(failForm);
-                }
-
-                return RedirectToAction("Home", "Home");
-            }
-        }
-
+        [HttpPost]
         public ActionResult Success(RideSuccessForm successForm)
         {
             using (var db = new AppDbContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("SuccessForm", successForm);
+                    return View("Success", successForm);
                 }
 
                 var user = (AppUser)Session["User"];
@@ -140,13 +128,32 @@ namespace TaxiService.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Fail(int id)
+        {
+            using (var db = new AppDbContext())
+            {
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    var failForm = new RideFailForm(id);
+
+                    return View(failForm);
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
+        }
+
+        [HttpPost]
         public ActionResult Fail(RideFailForm failForm)
         {
             using (var db = new AppDbContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("FailForm", failForm);
+                    return View("Fail", failForm);
                 }
 
                 var user = (AppUser)Session["User"];

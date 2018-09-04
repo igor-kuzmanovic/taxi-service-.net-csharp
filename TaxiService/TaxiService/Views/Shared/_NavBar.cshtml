@@ -14,7 +14,7 @@
             }
             else
             {
-                @Html.ActionLink("Taxi Service", "SignInForm", "Login", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Taxi Service", "SignIn", "Login", new { area = "" }, new { @class = "navbar-brand" })
             }
         </div>
         <div class="navbar-collapse collapse">
@@ -30,19 +30,19 @@
                     </li>
                     if (((AppUser)Session["User"]).Role == UserRole.Dispatcher)
                     {
-                        <li>@Html.ActionLink("Ride", "CreateForm", "Ride")</li>
-                        <li>@Html.ActionLink("Driver", "CreateForm", "Driver")</li>
+                        <li>@Html.ActionLink("Ride", "Create", "Ride")</li>
+                        <li>@Html.ActionLink("Driver", "Create", "Driver")</li>
                     }
                     else
                     {
                         if (((AppUser)Session["User"]).IsDriverBusy.Value)
                         {
-                            <li>@Html.ActionLink("Ride", "ProcessForm", "Ride")</li>
+                            <li>@Html.ActionLink("Ride", "Process", "Ride")</li>
                         }
                         else
                         {
-                            <li>@Html.ActionLink("Vehicle", "EditForm", "Vehicle")</li>
-                            <li>@Html.ActionLink("Location", "UpdateForm", "Location")</li>
+                            <li>@Html.ActionLink("Vehicle", "Edit", "Vehicle")</li>
+                            <li>@Html.ActionLink("Location", "Update", "Location")</li>
                         }
                     }
                 }
@@ -53,7 +53,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">@(((AppUser)Session["User"]).Username) <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Profile", "EditForm", "Profile")</li>
+                            <li>@Html.ActionLink("Profile", "Edit", "Profile")</li>
                             <li role="separator" class="divider"></li>
                             <li>@Html.ActionLink("Sign Out", "SignOut", "Login")</li>
                         </ul>

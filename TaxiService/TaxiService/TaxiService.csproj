@@ -234,18 +234,18 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Login\SignInForm.cshtml" />
+    <Content Include="Views\Login\SignIn.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Profile\EditForm.cshtml" />
-    <Content Include="Views\Location\UpdateForm.cshtml" />
-    <Content Include="Views\Ride\CreateForm.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Location\Update.cshtml" />
+    <Content Include="Views\Ride\Create.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Vehicle\EditForm.cshtml" />
-    <Content Include="Views\Ride\ProcessForm.cshtml" />
-    <Content Include="Views\Ride\FailForm.cshtml" />
-    <Content Include="Views\Ride\SuccessForm.cshtml" />
+    <Content Include="Views\Vehicle\Edit.cshtml" />
+    <Content Include="Views\Ride\Process.cshtml" />
+    <Content Include="Views\Ride\Fail.cshtml" />
+    <Content Include="Views\Ride\Success.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Driver\CreateForm.cshtml" />
+    <Content Include="Views\Driver\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

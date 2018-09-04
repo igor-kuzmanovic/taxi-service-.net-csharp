@@ -13,10 +13,11 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("EditForm");
+            return RedirectToAction("Edit");
         }
 
-        public ActionResult EditForm()
+        [HttpGet]
+        public ActionResult Edit()
         {
             using (var db = new AppDbContext())
             {
@@ -34,18 +35,19 @@ namespace TaxiService.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult Edit(VehicleEditForm editForm)
         {
             using (var db = new AppDbContext())
             {              
                 if (!ModelState.IsValid)
                 {
-                    return View("EditForm", editForm);
+                    return View("Edit", editForm);
                 }
 
                 if (db.Vehicles.Any(v => v.Identification == editForm.Identification))
                 {
-                    return View("EditForm", editForm);
+                    return View("Edit", editForm);
                 }
 
                 var user = (AppUser)Session["User"];

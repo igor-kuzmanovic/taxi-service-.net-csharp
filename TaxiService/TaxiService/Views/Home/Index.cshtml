@@ -9,7 +9,7 @@
     if (((AppUser)Session["User"]).Role == UserRole.Driver && ((AppUser)Session["User"]).IsDriverBusy.Value)
     {
         <div class="alert alert-info">
-            <strong>Ride in progress!</strong> You have been assigned a ride, <a href="~/Ride/ProcessForm" class="alert-link">CLICK HERE</a> to finish it!
+            <strong>Ride in progress!</strong> You have been assigned a ride, <a href="~/Ride/Process" class="alert-link">CLICK HERE</a> to finish it!
         </div>
     }
     if (Model.Any())
@@ -53,5 +53,5 @@
 else
 {
     <h2>Please sign in to view this page!</h2>
-    <a href="~/Login/SignInForm">Sign In</a>
+    <a href="~/Login/SignIn">Sign In</a>
 }

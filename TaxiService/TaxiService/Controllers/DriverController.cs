@@ -12,10 +12,11 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("CreateForm");
+            return RedirectToAction("Create");
         }
 
-        public ActionResult CreateForm()
+        [HttpGet]
+        public ActionResult Create()
         {
             using (var db = new AppDbContext())
             {
@@ -30,13 +31,15 @@ namespace TaxiService.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(DriverCreateForm createForm)
         {
             using (var db = new AppDbContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("CreateForm", createForm);
+                    return View("Create", createForm);
                 }
 
                 var user = (AppUser)Session["User"];

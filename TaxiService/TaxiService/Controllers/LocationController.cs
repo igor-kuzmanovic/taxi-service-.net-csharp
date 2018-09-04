@@ -13,10 +13,11 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("UpdateForm");
+            return RedirectToAction("Update");
         }
 
-        public ActionResult UpdateForm()
+        [HttpGet]
+        public ActionResult Update()
         {
             using (var db = new AppDbContext())
             {
@@ -33,13 +34,14 @@ namespace TaxiService.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult Update(LocationUpdateForm updateForm)
         {
             using (var db = new AppDbContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("UpdateForm", updateForm);
+                    return View("Update", updateForm);
                 }
 
                 var user = (AppUser)Session["User"];

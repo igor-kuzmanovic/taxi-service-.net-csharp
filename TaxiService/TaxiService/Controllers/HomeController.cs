@@ -17,18 +17,22 @@ namespace TaxiService.Controllers
             return RedirectToAction("Home");
         }
 
+        [HttpGet]
         public ActionResult Home()
         {
             var user = (AppUser)Session["User"];
 
             if (user.Role == UserRole.Dispatcher)
             {
-                return RedirectToAction("HomeDispatcher");
+                return RedirectToAction("Dispatcher");
             }
-
-            return RedirectToAction("HomeDriver");
+            else
+            {
+                return RedirectToAction("Driver");
+            }
         }
 
+        [HttpGet]
         public ActionResult Search()
         {
             using (var db = new AppDbContext())
@@ -44,7 +48,8 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult HomeDispatcher()
+        [HttpGet]
+        public ActionResult Dispatcher()
         {
             using (var db = new AppDbContext())
             {
@@ -67,7 +72,8 @@ namespace TaxiService.Controllers
             }
         }
 
-        public ActionResult HomeDriver()
+        [HttpGet]
+        public ActionResult Driver()
         {
             using (var db = new AppDbContext())
             {

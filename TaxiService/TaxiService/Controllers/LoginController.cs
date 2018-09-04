@@ -12,21 +12,23 @@ namespace TaxiService.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("SignInForm");
+            return RedirectToAction("SignIn");
         }
 
-        public ActionResult SignInForm()
+        [HttpGet]
+        public ActionResult SignIn()
         {
             return View();
         }       
 
+        [HttpPost]
         public ActionResult SignIn(SignInForm userForm)
         {
             using (var db = new AppDbContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("SignInForm", userForm);
+                    return View("SignIn", userForm);
                 }
 
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
@@ -39,16 +41,17 @@ namespace TaxiService.Controllers
                     return RedirectToAction("Home", "Home");
                 }
 
-                return RedirectToAction("SignInForm");
+                return RedirectToAction("SignIn");
             }
         }
 
+        [HttpGet]
         public ActionResult SignOut()
         {
             Session.Abandon();
             Session["User"] = null;
 
-            return RedirectToAction("SignInForm");
+            return RedirectToAction("SignIn");
         }
     }
 }
