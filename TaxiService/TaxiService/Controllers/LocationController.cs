@@ -49,9 +49,9 @@ namespace TaxiService.Controllers
                 if (dbUser != null)
                 {
                     var location = new Location(updateForm);
-                    dbUser.UpdateLocation(location);
+                    dbUser.Update(location);
                     var updatedUser = new AppUser();
-                    updatedUser.GetSignedInUserData(dbUser);
+                    updatedUser.GetLoginData(dbUser);
                     Session["User"] = updatedUser;
                     db.SaveChanges();
                 }

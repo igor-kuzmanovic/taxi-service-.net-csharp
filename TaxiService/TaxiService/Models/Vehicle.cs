@@ -20,18 +20,27 @@ namespace TaxiService.Models
             Type = form.Type;
         }
 
+        [Key]
         public int Id { get; set; }
 
         [Required]
         public AppUser Driver { get; set; }
 
-        public int? Year { get; set; }
+        [Required]
+        [Range(1900, 2018)]
+        public int Year { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string Registration { get; set; }
 
-        public int? Identification { get; set; }
+        [Key]
+        [Range(100, 999)]
+        public int Identification { get; set; }
 
-        public VehicleType? Type { get; set; }
+        [Required]
+        [EnumDataType(typeof(VehicleType))]
+        public VehicleType Type { get; set; }
 
         public void Update(VehicleEditForm form)
         {

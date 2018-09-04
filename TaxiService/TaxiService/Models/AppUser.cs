@@ -30,25 +30,47 @@ namespace TaxiService.Models
             IsDriverBusy = false;
         }
 
+        [Key]
         public int Id { get; set; }
 
+        [Key]
+        [StringLength(100)]
         public string Username { get; set; }
 
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(100)]
         public string Password { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string LastName { get; set; }
 
-        public Gender? Gender { get; set; }
+        [Required]
+        [EnumDataType(typeof(Gender))]
+        public Gender Gender { get; set; }
 
+        [Required]
+        [StringLength(13, MinimumLength = 13)]
         public string UMCN { get; set; }
 
+        [Required]
+        [Phone]
+        [StringLength(100)]
         public string Phone { get; set; }
 
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
         public string Email { get; set; }
 
-        public UserRole? Role { get; set; }
+        [Required]
+        [EnumDataType(typeof(UserRole))]
+        public UserRole Role { get; set; }
 
         public bool? IsDriverBusy { get; set; }
 
@@ -58,7 +80,7 @@ namespace TaxiService.Models
 
         public virtual Vehicle Vehicle { get; set; }
 
-        public void GetSignedInUserData(AppUser appUser)
+        public void GetLoginData(AppUser appUser)
         {
             Id = appUser.Id;
             Username = appUser.Username;
@@ -68,7 +90,7 @@ namespace TaxiService.Models
             IsDriverBusy = appUser.IsDriverBusy;
         }
 
-        public void UpdateProfile(ProfileEditForm form)
+        public void Update(ProfileEditForm form)
         {
             Password = form.Password;
             FirstName = form.FirstName;
@@ -79,7 +101,7 @@ namespace TaxiService.Models
             Email = form.Email;
         }
 
-        public void UpdateLocation(Location location)
+        public void Update(Location location)
         {
             Location = location;
         }

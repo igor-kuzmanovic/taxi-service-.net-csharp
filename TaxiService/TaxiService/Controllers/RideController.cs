@@ -119,7 +119,7 @@ namespace TaxiService.Controllers
                     ride.Update(successForm);
                     driver.IsDriverBusy = false;
                     var updatedUser = new AppUser();
-                    updatedUser.GetSignedInUserData(driver);
+                    updatedUser.GetLoginData(driver);
                     Session["User"] = updatedUser;
                     db.SaveChanges();
                 }
@@ -165,7 +165,7 @@ namespace TaxiService.Controllers
                     ride.Update(failForm);
                     driver.IsDriverBusy = false;
                     var updatedUser = new AppUser();
-                    updatedUser.GetSignedInUserData(driver);
+                    updatedUser.GetLoginData(driver);
                     Session["User"] = updatedUser;
                     db.SaveChanges();
                 }

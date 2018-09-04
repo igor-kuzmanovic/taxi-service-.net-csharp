@@ -48,9 +48,9 @@ namespace TaxiService.Controllers
                 var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
                 if (dbUser != null)
                 {
-                    dbUser.UpdateProfile(editForm);
+                    dbUser.Update(editForm);
                     var updatedUser = new AppUser();
-                    updatedUser.GetSignedInUserData(dbUser);
+                    updatedUser.GetLoginData(dbUser);
                     Session["User"] = updatedUser;
                     db.SaveChanges();
                 }

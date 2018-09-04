@@ -50,7 +50,7 @@ namespace TaxiService.ViewModels
         public Gender Gender { get; set; }
 
         [Required]
-        [StringLength(13)]
+        [StringLength(13, MinimumLength = 13)]
         public string UMCN { get; set; }
 
         [Required]

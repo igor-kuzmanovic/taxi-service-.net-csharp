@@ -35,7 +35,7 @@ namespace TaxiService.Controllers
                 if (dbUser != null)
                 {
                     var user = new AppUser();
-                    user.GetSignedInUserData(dbUser);
+                    user.GetLoginData(dbUser);
                     Session["User"] = user;
 
                     return RedirectToAction("Home", "Home");
