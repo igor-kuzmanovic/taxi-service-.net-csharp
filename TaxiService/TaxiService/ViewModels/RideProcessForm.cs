@@ -14,14 +14,14 @@ namespace TaxiService.ViewModels
         public RideProcessForm(Ride ride)
         {
             Id = ride.Id;
-            OrderDateTime = ride.OrderDateTime ?? DateTime.Now;
-            Longitude = ride.Source.Longitude ?? 0;
-            Latitude = ride.Source.Latitude ?? 0;
+            OrderDateTime = ride.OrderDateTime;
+            Longitude = ride.Source.Longitude;
+            Latitude = ride.Source.Latitude;
             Street = ride.Source.Street;
-            StreetNumber = ride.Source.StreetNumber ?? 0;
+            StreetNumber = ride.Source.StreetNumber;
             City = ride.Source.City;
-            PostalCode = ride.Source.PostalCode ?? 0;
-            VehicleType = ride.VehicleType ?? RideVehicleType.Any;
+            PostalCode = ride.Source.PostalCode;
+            VehicleType = ride.VehicleType;
             FirstName = ride.Dispatcher.FirstName;
             LastName = ride.Dispatcher.LastName;
         }

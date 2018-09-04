@@ -14,10 +14,10 @@ namespace TaxiService.ViewModels
         public VehicleEditForm(Vehicle vehicle)
         {
             Id = vehicle.Id;
-            Year = vehicle.Year ?? 0;
+            Year = vehicle.Year;
             Registration = vehicle.Registration;
-            Identification = vehicle.Identification ?? 0;
-            Type = vehicle.Type ?? VehicleType.Car;
+            Identification = vehicle.Identification;
+            Type = vehicle.Type;
         }
 
         [Required]

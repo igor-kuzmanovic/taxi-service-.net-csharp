@@ -13,8 +13,8 @@ namespace TaxiService.ViewModels
         public RideTableRow(Ride ride)
         {
             Id = ride.Id;
-            Status = ride.Status.Value.ToString();
-            OrderDateTime = ride.OrderDateTime.Value.ToString();
+            Status = ride.Status.ToString();
+            OrderDateTime = ride.OrderDateTime.ToString();
             Dispatcher = ride.Dispatcher.Username;
             Driver = ride.Driver.Username;
             Source = ride.Source.ToString();

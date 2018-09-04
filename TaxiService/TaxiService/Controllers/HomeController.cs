@@ -144,7 +144,7 @@ namespace TaxiService.Controllers
 
                 if (DateTime.TryParse(orderDateMin, out DateTime result))
                 {
-                    rides = rides.Where(r => r.OrderDateTime.Value >= result);
+                    rides = rides.Where(r => r.OrderDateTime >= result);
                 }
             }
 
@@ -154,7 +154,7 @@ namespace TaxiService.Controllers
 
                 if (DateTime.TryParse(orderDateMax, out DateTime result))
                 {
-                    rides = rides.Where(r => r.OrderDateTime.Value <= result);
+                    rides = rides.Where(r => r.OrderDateTime <= result);
                 }
             }
 
@@ -164,7 +164,7 @@ namespace TaxiService.Controllers
 
                 if (int.TryParse(ratingMin, out int result) && result > 0)
                 {
-                    rides = rides.Where(r => r.Status == RideStatus.Failed && (int)r.Comment.Rating.Value >= result);
+                    rides = rides.Where(r => r.Status == RideStatus.Failed && (int)r.Comment.Rating >= result);
                 }
             }
 
@@ -174,7 +174,7 @@ namespace TaxiService.Controllers
 
                 if (int.TryParse(ratingMax, out int result) && result > 0)
                 {
-                    rides = rides.Where(r => r.Status == RideStatus.Failed && (int)r.Comment.Rating.Value <= result);
+                    rides = rides.Where(r => r.Status == RideStatus.Failed && (int)r.Comment.Rating <= result);
                 }
             }
 

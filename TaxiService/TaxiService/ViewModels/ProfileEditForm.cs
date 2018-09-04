@@ -19,7 +19,7 @@ namespace TaxiService.ViewModels
             Password = appUser.Password;
             FirstName = appUser.FirstName;
             LastName = appUser.LastName;
-            Gender = appUser.Gender ?? Gender.Male;
+            Gender = appUser.Gender;
             UMCN = appUser.UMCN;
             Phone = appUser.Phone;
             Email = appUser.Email;

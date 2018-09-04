@@ -13,12 +13,12 @@ namespace TaxiService.ViewModels
 
         public LocationUpdateForm(Location location)
         {
-            Longitude = location.Longitude ?? 0;
-            Latitude = location.Latitude ?? 0;
+            Longitude = location.Longitude;
+            Latitude = location.Latitude;
             Street = location.Street;
-            StreetNumber = location.StreetNumber ?? 0;
+            StreetNumber = location.StreetNumber;
             City = location.City;
-            PostalCode = location.PostalCode ?? 0;
+            PostalCode = location.PostalCode;
         }
 
         [Required]
