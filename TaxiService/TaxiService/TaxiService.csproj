@@ -239,7 +239,7 @@
     <Content Include="Views\Profile\EditForm.cshtml" />
     <Content Include="Views\Location\UpdateForm.cshtml" />
     <Content Include="Views\Ride\CreateForm.cshtml" />
-    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Vehicle\EditForm.cshtml" />
     <Content Include="Views\Ride\ProcessForm.cshtml" />
     <Content Include="Views\Ride\FailForm.cshtml" />
