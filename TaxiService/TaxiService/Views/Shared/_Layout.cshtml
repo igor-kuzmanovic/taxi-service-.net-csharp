@@ -7,12 +7,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body style="padding-top: 70px">
     @Html.Partial("_NavBar")
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        @Html.Partial("_Footer")
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

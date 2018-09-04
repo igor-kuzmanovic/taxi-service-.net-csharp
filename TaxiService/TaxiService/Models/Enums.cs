@@ -43,14 +43,30 @@ namespace TaxiService.Models
         [Display(Name = "No Rating")]
         NoRating,
         [Display(Name = "*")]
-        One,
+        One = 1,
         [Display(Name = "**")]
-        Two,
+        Two = 2,
         [Display(Name = "***")]
-        Three,
+        Three = 3,
         [Display(Name = "****")]
-        Four,
+        Four = 4,
         [Display(Name = "*****")]
-        Five
+        Five = 5
+    }
+
+    public enum RideStatusFilter
+    {
+        Any,
+        Formed,
+        Failed,
+        Successful
+    }
+
+    public enum SortBy
+    {
+        None,
+        [Display(Name = "Order Date")]
+        OrderDate,
+        Rating
     }
 }

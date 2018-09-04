@@ -12,7 +12,7 @@
             <strong>New ride!</strong> You have been assigned a ride, <a href="~/Ride/ProcessForm" class="alert-link">process it</a>!
         </div>
     }
-    <h2>Home</h2>
+    <h2>Home</h2>   
     <table class="table table-hover table-condensed">
         <thead>
             <tr>
@@ -22,6 +22,8 @@
                 <th>Dispatcher</th>
                 <th>Driver</th>
                 <th>Source</th>
+                <th>Price</th>
+                <th>Comment</th>
             </tr>
         </thead>
         <tbody id="rides">
@@ -34,6 +36,8 @@
                     <td>@ride.Dispatcher</td>
                     <td>@ride.Driver</td>
                     <td>@ride.Source</td>
+                    <td>@ride.Price</td>
+                    <td>@ride.Comment</td>
                 </tr>
             }
         </tbody>

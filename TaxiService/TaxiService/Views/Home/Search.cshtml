@@ -1,0 +1,57 @@
+﻿@using TaxiService.Models
+@model IEnumerable<TaxiService.ViewModels.RideTableRow>
+@{
+    ViewBag.Title = "Search Rides";
+}
+
+@if (Session["User"] != null)
+{
+    using (Html.BeginForm(((AppUser)Session["User"]).Role == UserRole.Dispatcher ? "HomeDispatcher" : "HomeDriver", "Home", FormMethod.Get))
+    {
+        <h4>Search Rides</h4>
+        <hr />
+        <div class="form-group form-group-sm col-md-2">
+            @Html.Label("status", "Status")
+            @Html.DropDownList("status", EnumHelper.GetSelectList(typeof(RideStatusFilter)), new { @class = "form-control" })
+        </div>
+        <div class="form-group form-group-sm col-md-2">
+            @Html.Label("sortBy", "Sort By")
+            @Html.DropDownList("sortBy", EnumHelper.GetSelectList(typeof(SortBy)), new { @class = "form-control" })
+        </div>
+        <div class="form-group form-group-sm col-md-2">
+            @Html.Label("orderDateMin", "Order Date")
+            @Html.TextBox("orderDateMin", "", new { @class = "form-control", @placeholder = "Min" })
+            @Html.TextBox("orderDateMax", "", new { @class = "form-control", @placeholder = "Max" })
+        </div>
+        <div class="form-group form-group-sm col-md-2">
+            @Html.Label("ratingMin", "Rating")
+            @Html.DropDownList("ratingMin", EnumHelper.GetSelectList(typeof(Rating)), new { @class = "form-control" })
+            @Html.DropDownList("ratingMax", EnumHelper.GetSelectList(typeof(Rating)), new { @class = "form-control" })
+        </div>
+        <div class="form-group form-group-sm col-md-2">
+            @Html.Label("priceMin", "Price")
+            @Html.TextBox("priceMin", "", new { @class = "form-control", @placeholder = "Min" })
+            @Html.TextBox("priceMax", "", new { @class = "form-control", @placeholder = "Max" })
+        </div>
+        if (((AppUser)Session["User"]).Role == UserRole.Dispatcher)
+        {
+            <div class="form-group form-group-sm col-md-2">
+                @Html.Label("driver", "Driver")
+                @Html.TextBox("firstName", "", new { @class = "form-control", @placeholder = "First Name" })
+                @Html.TextBox("lastName", "", new { @class = "form-control", @placeholder = "Last Name" })
+            </div>
+        }
+        <div class="form-group form-group-sm col-md-12">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    }
+}
+else
+{
+    <h2>Please sign in to view this page!</h2>
+    <a href="~/Login/SignInForm">Sign In</a>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

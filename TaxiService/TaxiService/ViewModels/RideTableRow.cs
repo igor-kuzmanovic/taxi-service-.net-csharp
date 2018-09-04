@@ -20,10 +20,7 @@ namespace TaxiService.ViewModels
             Source = ride.Source.ToString();
             Destination = ride.Status == RideStatus.Successful ? ride.Destination.ToString() : "";
             Price = ride.Status == RideStatus.Successful ? Price = ride.Price : Price = null;
-            Commenter = ride.Status == RideStatus.Failed ? ride.Comment.Commenter.Username : string.Empty;
-            Commenter = ride.Status == RideStatus.Failed ? ride.Comment.Description : string.Empty;
-            Commenter = ride.Status == RideStatus.Failed ? ride.Comment.CreationDate.ToString() : string.Empty;
-            Rating = ride.Status == RideStatus.Failed ? (ride.Comment.Rating > 0 ? $"({ride.Comment.Rating}/ 5)" : "No Rating") : string.Empty;
+            Comment = ride.Status == RideStatus.Failed ? $"[{ride.Comment.CreationDate}] {(ride.Comment.Rating > 0 ? $"({(int)ride.Comment.Rating}/5)" : "No Rating")} {ride.Comment.Commenter.Username}: {ride.Comment.Description}" : string.Empty;
         }
 
         public int Id { get; set; }
@@ -42,12 +39,6 @@ namespace TaxiService.ViewModels
 
         public int? Price { get; set; }
 
-        public string Commenter { get; set; }
-
-        public string CommentDescription { get; set; }
-
-        public string CommentCreationDate { get; set; }
-
-        public string Rating { get; set; }
+        public string Comment { get; set; }
     }
 }

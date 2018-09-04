@@ -244,6 +244,7 @@
     <Content Include="Views\Ride\ProcessForm.cshtml" />
     <Content Include="Views\Ride\FailForm.cshtml" />
     <Content Include="Views\Ride\SuccessForm.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
