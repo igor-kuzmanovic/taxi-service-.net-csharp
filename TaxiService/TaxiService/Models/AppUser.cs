@@ -16,6 +16,20 @@ namespace TaxiService.Models
             Rides = new HashSet<Ride>();
         }
 
+        public AppUser(DriverCreateForm form)
+        {
+            Username = form.Username;
+            Password = form.Password;
+            FirstName = form.FirstName;
+            LastName = form.LastName;
+            Gender = form.Gender;
+            UMCN = form.UMCN;
+            Phone = form.Phone;
+            Email = form.Email;
+            Role = UserRole.Driver;
+            IsDriverBusy = false;
+        }
+
         public int Id { get; set; }
 
         public string Username { get; set; }
@@ -46,7 +60,6 @@ namespace TaxiService.Models
 
         public void GetSignedInUserData(AppUser appUser)
         {
-            appUser = appUser ?? new AppUser();
             Id = appUser.Id;
             Username = appUser.Username;
             FirstName = appUser.FirstName;
@@ -57,7 +70,6 @@ namespace TaxiService.Models
 
         public void UpdateProfile(ProfileEditForm form)
         {
-            form = form ?? new ProfileEditForm();
             Password = form.Password;
             FirstName = form.FirstName;
             LastName = form.LastName;
@@ -69,7 +81,6 @@ namespace TaxiService.Models
 
         public void UpdateLocation(Location location)
         {
-            location = location ?? new Location();
             Location = location;
         }
     }

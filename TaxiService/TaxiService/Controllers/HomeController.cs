@@ -31,7 +31,17 @@ namespace TaxiService.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            using (var db = new AppDbContext())
+            {
+                var user = (AppUser)Session["User"];
+                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+                if (dbUser != null)
+                {
+                    return View();
+                }
+
+                return RedirectToAction("Home", "Home");
+            }
         }
 
         public ActionResult HomeDispatcher()
@@ -50,7 +60,7 @@ namespace TaxiService.Controllers
 
                     var rideTableRows = GenerateQuery(rides).ToList().Select(r => new RideTableRow(r));
 
-                    return View(rideTableRows);
+                    return View("Index", rideTableRows);
                 }
 
                 return RedirectToAction("Home", "Home");
@@ -74,7 +84,7 @@ namespace TaxiService.Controllers
 
                     var rideTableRows = GenerateQuery(rides).ToList().Select(r => new RideTableRow(r));
 
-                    return View(rideTableRows);
+                    return View("Index", rideTableRows);
                 }
 
                 return RedirectToAction("Home", "Home");

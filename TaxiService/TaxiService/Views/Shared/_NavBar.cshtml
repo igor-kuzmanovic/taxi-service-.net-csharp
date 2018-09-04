@@ -31,6 +31,7 @@
                     if (((AppUser)Session["User"]).Role == UserRole.Dispatcher)
                     {
                         <li>@Html.ActionLink("Ride", "CreateForm", "Ride")</li>
+                        <li>@Html.ActionLink("Driver", "CreateForm", "Driver")</li>
                     }
                     else
                     {

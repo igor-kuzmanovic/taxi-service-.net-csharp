@@ -6,13 +6,15 @@
 
 @if (Session["User"] != null)
 {
-    if (((AppUser)Session["User"]).IsDriverBusy.Value)
+    if (((AppUser)Session["User"]).Role == UserRole.Driver && ((AppUser)Session["User"]).IsDriverBusy.Value)
     {
         <div class="alert alert-info">
             <strong>New ride!</strong> You have been assigned a ride, <a href="~/Ride/ProcessForm" class="alert-link">process it</a>!
         </div>
     }
     <h2>Home</h2>   
+    if (Model.Any())
+    {
     <table class="table table-hover table-condensed">
         <thead>
             <tr>
@@ -42,6 +44,11 @@
             }
         </tbody>
     </table>
+    }
+    else
+    {
+        <p>There are no rides!</p>
+    }
 }
 else
 {
