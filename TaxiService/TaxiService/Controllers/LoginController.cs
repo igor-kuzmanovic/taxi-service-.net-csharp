@@ -47,7 +47,8 @@ namespace TaxiService.Controllers
             var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == form.Username && u.Password == form.Password);
             if (dbUser == null)
             {
-                return HttpNotFound();
+                ModelState.AddModelError("", "Invalid credentials.");
+                return View("SignIn", form);
             }
 
             var loginUser = new AppUser();
@@ -63,7 +64,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("SignIn");
             }
 
             Session.Abandon();

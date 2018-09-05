@@ -24,7 +24,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("SignIn", "Login");
             }
 
             var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
@@ -45,7 +45,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("SignIn", "Login");
             }
 
             if (!ModelState.IsValid)

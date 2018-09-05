@@ -25,7 +25,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("SignIn", "Login");
             }
 
             if (user.Role == UserRole.Dispatcher)
@@ -44,7 +44,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("SignIn", "Login");
             }
 
             return View();
@@ -56,7 +56,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("SignIn", "Login");
             }
 
             if (user.Role != UserRole.Dispatcher)
@@ -81,7 +81,7 @@ namespace TaxiService.Controllers
             var user = (AppUser)Session["User"];
             if (user == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("SignIn", "Login");
             }
 
             if (user.Role != UserRole.Driver)
