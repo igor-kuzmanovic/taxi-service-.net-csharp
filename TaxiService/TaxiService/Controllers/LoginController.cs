@@ -10,6 +10,8 @@ namespace TaxiService.Controllers
 {
     public class LoginController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("SignIn");
@@ -18,40 +20,65 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult SignIn()
         {
+            var user = (AppUser)Session["User"];
+            if (user != null)
+            {
+                return RedirectToAction("Home", "Home");
+            }
+
             return View();
-        }       
+        }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SignIn(SignInForm userForm)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user != null)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("SignIn", userForm);
-                }
-
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
-                if (dbUser != null)
-                {
-                    var user = new AppUser();
-                    user.GetLoginData(dbUser);
-                    Session["User"] = user;
-
-                    return RedirectToAction("Home", "Home");
-                }
-
-                return RedirectToAction("SignIn");
+                return RedirectToAction("Home", "Home");
             }
+
+            if (!ModelState.IsValid)
+            {
+                return View("SignIn", userForm);
+            }
+
+            var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var loginUser = new AppUser();
+            loginUser.GetLoginData(dbUser);
+            Session["User"] = loginUser;
+
+            return RedirectToAction("Home", "Home");
         }
 
         [HttpGet]
         public ActionResult SignOut()
         {
+            var user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             Session.Abandon();
             Session["User"] = null;
 
             return RedirectToAction("SignIn");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace TaxiService.Controllers
 {
     public class RideController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Create");
@@ -19,159 +21,190 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var drivers = db.AppUsers.Where(u => u.Role == UserRole.Driver && !u.IsDriverBusy.Value).ToList();
-                    var driverList = drivers.Select(d => new SelectListItem { Text = $"{d.FirstName} {d.LastName}", Value = d.Id.ToString() });
-                    ViewBag.DriversList = new SelectList(driverList, "Value", "Text");
-
-                    return View();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Dispatcher)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var drivers = db.AppUsers.Where(u => u.Role == UserRole.Driver && !u.IsDriverBusy.Value).ToList();
+            var driverList = drivers.Select(d => new SelectListItem { Text = $"{d.FirstName} {d.LastName}", Value = d.Id.ToString() });
+            ViewBag.DriversList = new SelectList(driverList, "Value", "Text");
+
+            return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(RideCreateForm createForm)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("Create", createForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var location = new Location(createForm);
-                    var driver = db.AppUsers.SingleOrDefault(u => u.Id == createForm.DriverId);
-                    var ride = new Ride(location, dbUser, createForm.VehicleType, driver);
-                    driver.IsDriverBusy = true;
-                    db.Rides.Add(ride);
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Dispatcher)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Create", createForm);
+            }
+
+            var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var location = new Location(createForm);
+            var driver = db.AppUsers.SingleOrDefault(u => u.Id == createForm.DriverId);
+            var ride = new Ride(location, dbUser, createForm.VehicleType, driver);
+            driver.IsDriverBusy = true;
+            db.Rides.Add(ride);
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
         }
 
         [HttpGet]
         public ActionResult Process()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var dbRide = db.Rides.Include(r => r.Source).Include(r => r.Dispatcher).FirstOrDefault(r => r.Driver.Id == dbUser.Id && r.Status == RideStatus.Formed);
-                    var processForm = new RideProcessForm(dbRide);
-
-                    return View(processForm);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var dbRide = db.Rides.Include(r => r.Source).Include(r => r.Dispatcher).FirstOrDefault(r => r.Driver.Id == user.Id && r.Status == RideStatus.Formed);
+            var processForm = new RideProcessForm(dbRide);
+
+            return View(processForm);
         }
 
         [HttpGet]
         public ActionResult Success(int id)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var successForm = new RideSuccessForm(id);
-
-                    return View(successForm);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var successForm = new RideSuccessForm(id);
+
+            return View(successForm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Success(RideSuccessForm successForm)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("Success", successForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == successForm.RideId);
-                    var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
-                    var location = new Location(successForm);
-                    ride.Update(successForm);
-                    driver.IsDriverBusy = false;
-                    var updatedUser = new AppUser();
-                    updatedUser.GetLoginData(driver);
-                    Session["User"] = updatedUser;
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Success", successForm);
+            }
+
+            var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == successForm.RideId);
+            var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
+            var location = new Location(successForm);
+            ride.Update(successForm);
+            driver.IsDriverBusy = false;
+            var updatedUser = new AppUser();
+            updatedUser.GetLoginData(driver);
+            Session["User"] = updatedUser;
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
         }
 
         [HttpGet]
         public ActionResult Fail(int id)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var failForm = new RideFailForm(id);
-
-                    return View(failForm);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var failForm = new RideFailForm(id);
+
+            return View(failForm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Fail(RideFailForm failForm)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("Fail", failForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == failForm.RideId);
-                    var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
-                    ride.Update(failForm);
-                    driver.IsDriverBusy = false;
-                    var updatedUser = new AppUser();
-                    updatedUser.GetLoginData(driver);
-                    Session["User"] = updatedUser;
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Fail", failForm);
+            }
+
+            var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == failForm.RideId);
+            var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
+            ride.Update(failForm);
+            driver.IsDriverBusy = false;
+            var updatedUser = new AppUser();
+            updatedUser.GetLoginData(driver);
+            Session["User"] = updatedUser;
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

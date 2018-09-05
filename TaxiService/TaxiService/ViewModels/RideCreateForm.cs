@@ -12,18 +12,19 @@ namespace TaxiService.ViewModels
     {
         [Required]
         [Range(-180, 180)]
-        public double Longitude { get; set; }
+        public float Longitude { get; set; }
 
         [Required]
         [Range(-90, 90)]
-        public double Latitude { get; set; }
+        public float Latitude { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Street { get; set; }
 
         [Required]
-        [Range(0, int.MaxValue)]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Street Number")]
         public int StreetNumber { get; set; }
 
         [Required]
@@ -32,13 +33,17 @@ namespace TaxiService.ViewModels
 
         [Required]
         [Range(10000, 50000)]
+        [Display(Name = "Postal Code")]
         public int PostalCode { get; set; }
 
         [Required]
         [EnumDataType(typeof(RideVehicleType))]
+        [Display(Name = "Vehicle Type")]
         public RideVehicleType VehicleType { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Driver")]
         public int DriverId { get; set; }
     }
 }

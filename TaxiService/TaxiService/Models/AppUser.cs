@@ -30,46 +30,24 @@ namespace TaxiService.Models
             IsDriverBusy = false;
         }
 
-        [Key]
         public int Id { get; set; }
 
-        [Key]
-        [StringLength(100)]
         public string Username { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [StringLength(100)]
         public string Password { get; set; }
 
-        [Required]
-        [StringLength(100)]
         public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(100)]
         public string LastName { get; set; }
 
-        [Required]
-        [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
-        [Required]
-        [StringLength(13, MinimumLength = 13)]
         public string UMCN { get; set; }
 
-        [Required]
-        [Phone]
-        [StringLength(100)]
         public string Phone { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [StringLength(100)]
         public string Email { get; set; }
 
-        [Required]
-        [EnumDataType(typeof(UserRole))]
         public UserRole Role { get; set; }
 
         public bool? IsDriverBusy { get; set; }

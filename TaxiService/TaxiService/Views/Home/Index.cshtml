@@ -18,13 +18,13 @@
         <table class="table table-hover table-condensed">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Status</th>
                     <th>Order Date &amp; Time</th>
                     <th>Dispatcher</th>
                     <th>Driver</th>
                     <th>Source</th>
                     <th>Price</th>
+                    <th>Rating</th>
                     <th>Comment</th>
                 </tr>
             </thead>
@@ -32,13 +32,13 @@
                 @foreach (var ride in Model)
                 {
                     <tr class="@(ride.Status == "Successful" ? "success" : ride.Status == "Failed" ? "danger" : "info")">
-                        <td>@ride.Id</td>
                         <td>@ride.Status</td>
                         <td>@ride.OrderDateTime</td>
                         <td>@ride.Dispatcher</td>
                         <td>@ride.Driver</td>
                         <td>@ride.Source</td>
                         <td>@ride.Price</td>
+                        <td>@ride.Rating</td>
                         <td>@ride.Comment</td>
                     </tr>
                 }

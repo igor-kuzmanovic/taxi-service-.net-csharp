@@ -21,34 +21,24 @@ namespace TaxiService.Models
             Status = RideStatus.Formed;
         }
 
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
         public DateTime OrderDateTime { get; set; }
 
-        [Required]
         public Location Source { get; set; }
 
-        [Required]
-        [EnumDataType(typeof(RideVehicleType))]
         public RideVehicleType VehicleType { get; set; }
 
         public Location Destination { get; set; }
 
-        [Required]
         public AppUser Dispatcher { get; set; }
 
-        [Required]
         public AppUser Driver { get; set; }
 
         public int? Price { get; set; }
 
         public Comment Comment { get; set; }
 
-        [Required]
-        [EnumDataType(typeof(RideStatus))]
         public RideStatus Status { get; set; }
 
         public void Update(RideSuccessForm form)

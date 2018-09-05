@@ -12,6 +12,8 @@ namespace TaxiService.Controllers
 {
     public class HomeController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Home");
@@ -21,6 +23,10 @@ namespace TaxiService.Controllers
         public ActionResult Home()
         {
             var user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
 
             if (user.Role == UserRole.Dispatcher)
             {
@@ -35,66 +41,64 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult Search()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    return View();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            return View();
         }
 
         [HttpGet]
         public ActionResult Dispatcher()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var rides = db.Rides.Include(r => r.Dispatcher)
-                        .Include(r => r.Driver)
-                        .Include(r => r.Source)
-                        .Include(r => r.Destination)
-                        .Include(r => r.Comment);
-
-                    var rideTableRows = GenerateQuery(rides).ToList().Select(r => new RideTableRow(r));
-
-                    return View("Index", rideTableRows);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Dispatcher)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var rides = db.Rides.Include(r => r.Dispatcher)
+                .Include(r => r.Driver)
+                .Include(r => r.Source)
+                .Include(r => r.Destination)
+                .Include(r => r.Comment);
+
+            var rideTableRows = GenerateQuery(rides).ToList().Select(r => new RideTableRow(r));
+
+            return View("Index", rideTableRows);
         }
 
         [HttpGet]
         public ActionResult Driver()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var rides = db.Rides.Include(r => r.Dispatcher)
-                        .Include(r => r.Driver)
-                        .Include(r => r.Source)
-                        .Include(r => r.Destination)
-                        .Include(r => r.Comment)
-                        .Where(r => r.Driver.Id == dbUser.Id);
-
-                    var rideTableRows = GenerateQuery(rides).ToList().Select(r => new RideTableRow(r));
-
-                    return View("Index", rideTableRows);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var rides = db.Rides.Include(r => r.Dispatcher)
+                .Include(r => r.Driver)
+                .Include(r => r.Source)
+                .Include(r => r.Destination)
+                .Include(r => r.Comment)
+                .Where(r => r.Driver.Id == user.Id);
+
+            var rideTableRows = GenerateQuery(rides).ToList().Select(r => new RideTableRow(r));
+
+            return View("Index", rideTableRows);
         }
 
         private IQueryable<Ride> GenerateQuery(IQueryable<Ride> rides)
@@ -219,6 +223,15 @@ namespace TaxiService.Controllers
             }
 
             return rides;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

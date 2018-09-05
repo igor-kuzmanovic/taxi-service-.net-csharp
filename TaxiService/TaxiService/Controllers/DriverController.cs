@@ -10,6 +10,8 @@ namespace TaxiService.Controllers
 {
     public class DriverController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Create");
@@ -18,41 +20,60 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    return View();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Dispatcher)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(DriverCreateForm createForm)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("Create", createForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var driver = new AppUser(createForm);
-                    db.AppUsers.Add(driver);
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Dispatcher)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Create", createForm);
+            }
+
+            if (db.AppUsers.Any(u => u.Username == createForm.Username))
+            {
+                ModelState.AddModelError("", "A user with that username already exists.");
+                return View("Create", createForm);
+            }
+
+            var driver = new AppUser(createForm);
+            db.AppUsers.Add(driver);
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

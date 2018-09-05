@@ -11,6 +11,8 @@ namespace TaxiService.Controllers
 {
     public class VehicleController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Edit");
@@ -19,48 +21,63 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult Edit()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.Include(u => u.Vehicle).SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var dbVehicle = db.Vehicles.SingleOrDefault(v => v.Id == dbUser.Vehicle.Id);
-                    var editForm = new VehicleEditForm(dbVehicle);
-
-                    return View(editForm);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var dbUser = db.AppUsers.Include(u => u.Vehicle).SingleOrDefault(u => u.Id == user.Id);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var dbVehicle = db.Vehicles.SingleOrDefault(v => v.Id == dbUser.Vehicle.Id);
+            var editForm = new VehicleEditForm(dbVehicle);
+
+            return View(editForm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(VehicleEditForm editForm)
         {
-            using (var db = new AppDbContext())
-            {              
-                if (!ModelState.IsValid)
-                {
-                    return View("Edit", editForm);
-                }
-
-                if (db.Vehicles.Any(v => v.Identification == editForm.Identification))
-                {
-                    return View("Edit", editForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var dbVehicle = db.Vehicles.SingleOrDefault(v => v.Id == editForm.Id);
-                    dbVehicle.Update(editForm);
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+            var user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", editForm);
+            }
+
+            var dbVehicle = db.Vehicles.SingleOrDefault(v => v.Id == editForm.Id);
+            dbVehicle.Update(editForm);
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

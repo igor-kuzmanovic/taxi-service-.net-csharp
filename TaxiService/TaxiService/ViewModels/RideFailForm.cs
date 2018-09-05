@@ -18,6 +18,7 @@ namespace TaxiService.ViewModels
         }
 
         [Required]
+        [Display(Name = "Ride")]
         public int RideId { get; set; }
 
         [Required]

@@ -21,25 +21,17 @@ namespace TaxiService.Models
             Rating = form.Rating;
         }
 
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(512)]
         public string Description { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
         public DateTime CreationDate { get; set; }
 
-        [Required]
         public AppUser Commenter { get; set; }
 
         [Required]
         public Ride Ride { get; set; }
 
-        [Required]
-        [EnumDataType(typeof(Rating))]
         public Rating Rating { get; set; }
     }
 }

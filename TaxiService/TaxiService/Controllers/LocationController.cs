@@ -11,6 +11,8 @@ namespace TaxiService.Controllers
 {
     public class LocationController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Update");
@@ -19,45 +21,72 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult Update()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.Include(u => u.Location).SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var updateForm = new LocationUpdateForm(dbUser.Location);
-
-                    return View(updateForm);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var dbUser = db.AppUsers.Include(u => u.Location).SingleOrDefault(u => u.Id == user.Id);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var updateForm = new LocationUpdateForm(dbUser.Location);
+
+            return View(updateForm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(LocationUpdateForm updateForm)
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("Update", updateForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var location = new Location(updateForm);
-                    dbUser.Update(location);
-                    var updatedUser = new AppUser();
-                    updatedUser.GetLoginData(dbUser);
-                    Session["User"] = updatedUser;
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            if (user.Role != UserRole.Driver)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Update", updateForm);
+            }
+
+            var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var location = new Location(updateForm);
+            dbUser.Update(location);
+            var updatedUser = new AppUser();
+            updatedUser.GetLoginData(dbUser);
+            Session["User"] = updatedUser;
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

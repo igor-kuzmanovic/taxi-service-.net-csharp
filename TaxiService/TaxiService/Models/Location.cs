@@ -41,36 +41,23 @@ namespace TaxiService.Models
             PostalCode = form.PostalCode;
         }
 
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [Range(-180, 180)]
-        public double Longitude { get; set; }
+        public float Longitude { get; set; }
 
-        [Required]
-        [Range(-90, 90)]
-        public double Latitude { get; set; }
+        public float Latitude { get; set; }
 
-        [Required]
-        [StringLength(100)]
         public string Street { get; set; }
 
-        [Required]
-        [Range(0, int.MaxValue)]
         public int StreetNumber { get; set; }
 
-        [Required]
-        [StringLength(100)]
         public string City { get; set; }
 
-        [Required]
-        [Range(10000, 50000)]
         public int PostalCode { get; set; }
 
         public override string ToString()
         {
-            return $"{Street} {StreetNumber} - {City} {PostalCode} ({Longitude}, {Latitude})";
+            return $"{Street} {StreetNumber}, {City} {PostalCode}, {Longitude} {Latitude}";
         }
     }
 }

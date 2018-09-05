@@ -16,7 +16,6 @@ namespace TaxiService.ViewModels
             Id = vehicle.Id;
             Year = vehicle.Year;
             Registration = vehicle.Registration;
-            Identification = vehicle.Identification;
             Type = vehicle.Type;
         }
 
@@ -32,11 +31,8 @@ namespace TaxiService.ViewModels
         public string Registration { get; set; }
 
         [Required]
-        [Range(100, 999)]
-        public int Identification { get; set; }
-
-        [Required]
         [EnumDataType(typeof(VehicleType))]
+        [Display(Name = "Vehicle Type")]
         public VehicleType Type { get; set; }
     }
 }

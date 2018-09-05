@@ -20,8 +20,8 @@
         </div>
         <div class="form-group form-group-sm col-md-2">
             @Html.Label("orderDateMin", "Order Date")
-            @Html.TextBox("orderDateMin", "", new { @class = "form-control", @placeholder = "Min" })
-            @Html.TextBox("orderDateMax", "", new { @class = "form-control", @placeholder = "Max" })
+            <input class="form-control" id="orderDateMin" name="orderDateMin" placeholder="Min" type="date" value="">
+            <input class="form-control" id="orderDateMax" name="orderDateMax" placeholder="Max" type="date" value="">
         </div>
         <div class="form-group form-group-sm col-md-2">
             @Html.Label("ratingMin", "Rating")

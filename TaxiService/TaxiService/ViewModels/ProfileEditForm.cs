@@ -39,10 +39,12 @@ namespace TaxiService.ViewModels
 
         [Required]
         [StringLength(100)]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(100)]
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         [Required]
@@ -51,6 +53,7 @@ namespace TaxiService.ViewModels
 
         [Required]
         [StringLength(13, MinimumLength = 13)]
+        [DisplayName("Unique Master Citizen Number")]
         public string UMCN { get; set; }
 
         [Required]

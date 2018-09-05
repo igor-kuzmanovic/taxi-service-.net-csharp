@@ -11,6 +11,8 @@ namespace TaxiService.Controllers
 {
     public class ProfileController : Controller
     {
+        private AppDbContext db = new AppDbContext();
+
         public ActionResult Index()
         {
             return RedirectToAction("Edit");
@@ -19,44 +21,60 @@ namespace TaxiService.Controllers
         [HttpGet]
         public ActionResult Edit()
         {
-            using (var db = new AppDbContext())
+            var user = (AppUser)Session["User"];
+            if (user == null)
             {
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    var editForm = new ProfileEditForm(dbUser);
-
-                    return View(editForm);
-                }
-
-                return RedirectToAction("Home", "Home");
+                return RedirectToAction("Login", "Login");
             }
+
+            var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var editForm = new ProfileEditForm(dbUser);
+
+            return View(editForm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileEditForm editForm)
         {
-            using (var db = new AppDbContext())
-            {               
-                if (!ModelState.IsValid)
-                {                   
-                    return View("Edit", editForm);
-                }
-
-                var user = (AppUser)Session["User"];
-                var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
-                if (dbUser != null)
-                {
-                    dbUser.Update(editForm);
-                    var updatedUser = new AppUser();
-                    updatedUser.GetLoginData(dbUser);
-                    Session["User"] = updatedUser;
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("Home", "Home");
+            var user = (AppUser)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Login");
             }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", editForm);
+            }
+
+            var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
+            if (dbUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            dbUser.Update(editForm);
+            var updatedUser = new AppUser();
+            updatedUser.GetLoginData(dbUser);
+            Session["User"] = updatedUser;
+            db.SaveChanges();
+
+            return RedirectToAction("Home", "Home");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
