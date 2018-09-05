@@ -28,6 +28,8 @@ namespace TaxiService.Models
             Email = form.Email;
             Role = UserRole.Driver;
             IsDriverBusy = false;
+            Location = new Location();
+            Vehicle = new Vehicle();
         }
 
         public int Id { get; set; }

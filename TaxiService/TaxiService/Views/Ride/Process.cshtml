@@ -1,85 +1,77 @@
-﻿@model TaxiService.ViewModels.RideProcessForm
+﻿@model RideProcessForm
 @{
     ViewBag.Title = "Ride Process";
 }
 
-@if (Session["User"] != null)
-{
-    <div class="form-horizontal">
-        <h4>Profile Edit</h4>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.OrderDateTime</p>
-            </div>
+<div class="form-horizontal">
+    <h4>Profile Edit</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.OrderDateTime</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.Longitude</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.Longitude</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.Latitude</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.Latitude</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.Street</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.Street</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.StreetNumber</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.StreetNumber</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.City</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.City</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.PostalCode</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.PostalCode</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.VehicleType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.VehicleType</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.VehicleType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.VehicleType</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.FirstName</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.FirstName</p>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p class="form-control-static">@Model.LastName</p>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p class="form-control-static">@Model.LastName</p>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="btn-group" role="group">
-                    @Html.ActionLink("Success", "Success", new { id = Model.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Fail", "Fail", new { id = Model.Id }, new { @class = "btn btn-danger" })
-                </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="btn-group" role="group">
+                @Html.ActionLink("Success", "Success", new { id = Model.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Fail", "Fail", new { id = Model.Id }, new { @class = "btn btn-danger" })
             </div>
         </div>
     </div>
-}
-else
-{
-    <h2>Please sign in to view this page!</h2>
-    <a href="~/Login/SignIn">Sign In</a>
-}
+</div>

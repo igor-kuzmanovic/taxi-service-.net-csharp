@@ -41,7 +41,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RideCreateForm createForm)
+        public ActionResult Create(RideCreateForm form)
         {
             var user = (AppUser)Session["User"];
             if (user == null)
@@ -56,7 +56,7 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Create", createForm);
+                return View("Create", form);
             }
 
             var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
@@ -65,9 +65,9 @@ namespace TaxiService.Controllers
                 return HttpNotFound();
             }
 
-            var location = new Location(createForm);
-            var driver = db.AppUsers.SingleOrDefault(u => u.Id == createForm.DriverId);
-            var ride = new Ride(location, dbUser, createForm.VehicleType, driver);
+            var location = new Location(form);
+            var driver = db.AppUsers.SingleOrDefault(u => u.Id == form.DriverId);
+            var ride = new Ride(location, dbUser, form.VehicleType, driver);
             driver.IsDriverBusy = true;
             db.Rides.Add(ride);
             db.SaveChanges();
@@ -116,7 +116,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Success(RideSuccessForm successForm)
+        public ActionResult Success(RideSuccessForm form)
         {
             var user = (AppUser)Session["User"];
             if (user == null)
@@ -131,13 +131,13 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Success", successForm);
+                return View("Success", form);
             }
 
-            var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == successForm.RideId);
+            var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == form.RideId);
             var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
-            var location = new Location(successForm);
-            ride.Update(successForm);
+            var location = new Location(form);
+            ride.Update(form);
             driver.IsDriverBusy = false;
             var updatedUser = new AppUser();
             updatedUser.GetLoginData(driver);
@@ -168,7 +168,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Fail(RideFailForm failForm)
+        public ActionResult Fail(RideFailForm form)
         {
             var user = (AppUser)Session["User"];
             if (user == null)
@@ -183,12 +183,12 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Fail", failForm);
+                return View("Fail", form);
             }
 
-            var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == failForm.RideId);
+            var ride = db.Rides.Include(r => r.Driver).SingleOrDefault(r => r.Id == form.RideId);
             var driver = db.AppUsers.SingleOrDefault(u => u.Id == ride.Driver.Id);
-            ride.Update(failForm);
+            ride.Update(form);
             driver.IsDriverBusy = false;
             var updatedUser = new AppUser();
             updatedUser.GetLoginData(driver);

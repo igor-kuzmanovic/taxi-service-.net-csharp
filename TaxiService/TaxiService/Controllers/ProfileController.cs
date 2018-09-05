@@ -40,7 +40,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProfileEditForm editForm)
+        public ActionResult Edit(ProfileEditForm form)
         {
             var user = (AppUser)Session["User"];
             if (user == null)
@@ -50,7 +50,7 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Edit", editForm);
+                return View("Edit", form);
             }
 
             var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
@@ -59,7 +59,7 @@ namespace TaxiService.Controllers
                 return HttpNotFound();
             }
 
-            dbUser.Update(editForm);
+            dbUser.Update(form);
             var updatedUser = new AppUser();
             updatedUser.GetLoginData(dbUser);
             Session["User"] = updatedUser;

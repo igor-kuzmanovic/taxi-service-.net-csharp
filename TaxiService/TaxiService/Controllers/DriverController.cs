@@ -36,7 +36,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DriverCreateForm createForm)
+        public ActionResult Create(DriverCreateForm form)
         {
             var user = (AppUser)Session["User"];
             if (user == null)
@@ -51,16 +51,16 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Create", createForm);
+                return View("Create", form);
             }
 
-            if (db.AppUsers.Any(u => u.Username == createForm.Username))
+            if (db.AppUsers.Any(u => u.Username == form.Username))
             {
                 ModelState.AddModelError("", "A user with that username already exists.");
-                return View("Create", createForm);
+                return View("Create", form);
             }
 
-            var driver = new AppUser(createForm);
+            var driver = new AppUser(form);
             db.AppUsers.Add(driver);
             db.SaveChanges();
 

@@ -1,57 +1,48 @@
-﻿@using TaxiService.Models
-@model IEnumerable<TaxiService.ViewModels.RideTableRow>
+﻿@model IEnumerable<RideTableRow>
 @{
     ViewBag.Title = "Home";
 }
 
-@if (Session["User"] != null)
+@if (((AppUser)Session["User"]).Role == UserRole.Driver && ((AppUser)Session["User"]).IsDriverBusy.Value)
 {
-    if (((AppUser)Session["User"]).Role == UserRole.Driver && ((AppUser)Session["User"]).IsDriverBusy.Value)
-    {
-        <div class="alert alert-info">
-            <strong>Ride in progress!</strong> You have been assigned a ride, <a href="~/Ride/Process" class="alert-link">CLICK HERE</a> to finish it!
-        </div>
-    }
-    if (Model.Any())
-    {
-        <h2>Rides</h2>
-        <table class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Order Date &amp; Time</th>
-                    <th>Dispatcher</th>
-                    <th>Driver</th>
-                    <th>Source</th>
-                    <th>Price</th>
-                    <th>Rating</th>
-                    <th>Comment</th>
+    <div class="alert alert-info">
+        <strong>Ride in progress!</strong> You have been assigned a ride, <a href="~/Ride/Process" class="alert-link">CLICK HERE</a> to finish it!
+    </div>
+}
+@if (Model.Any())
+{
+    <h2>Rides</h2>
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Order Date &amp; Time</th>
+                <th>Dispatcher</th>
+                <th>Driver</th>
+                <th>Source</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody id="rides">
+            @foreach (var ride in Model)
+            {
+                <tr class="@(ride.Status == "Successful" ? "success" : ride.Status == "Failed" ? "danger" : "info")">
+                    <td>@ride.Status</td>
+                    <td>@ride.OrderDateTime</td>
+                    <td>@ride.Dispatcher</td>
+                    <td>@ride.Driver</td>
+                    <td>@ride.Source</td>
+                    <td>@ride.Price</td>
+                    <td>@ride.Rating</td>
+                    <td>@ride.Comment</td>
                 </tr>
-            </thead>
-            <tbody id="rides">
-                @foreach (var ride in Model)
-                {
-                    <tr class="@(ride.Status == "Successful" ? "success" : ride.Status == "Failed" ? "danger" : "info")">
-                        <td>@ride.Status</td>
-                        <td>@ride.OrderDateTime</td>
-                        <td>@ride.Dispatcher</td>
-                        <td>@ride.Driver</td>
-                        <td>@ride.Source</td>
-                        <td>@ride.Price</td>
-                        <td>@ride.Rating</td>
-                        <td>@ride.Comment</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <h2>There are no rides!</h2>
-    }
+            }
+        </tbody>
+    </table>
 }
 else
 {
-    <h2>Please sign in to view this page!</h2>
-    <a href="~/Login/SignIn">Sign In</a>
+    <h2>There are no rides!</h2>
 }

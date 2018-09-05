@@ -45,7 +45,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(LocationUpdateForm updateForm)
+        public ActionResult Update(LocationUpdateForm form)
         {
             var user = (AppUser)Session["User"];
             if (user == null)
@@ -60,7 +60,7 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Update", updateForm);
+                return View("Update", form);
             }
 
             var dbUser = db.AppUsers.SingleOrDefault(u => u.Id == user.Id);
@@ -69,7 +69,7 @@ namespace TaxiService.Controllers
                 return HttpNotFound();
             }
 
-            var location = new Location(updateForm);
+            var location = new Location(form);
             dbUser.Update(location);
             var updatedUser = new AppUser();
             updatedUser.GetLoginData(dbUser);

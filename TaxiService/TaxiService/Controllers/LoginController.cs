@@ -31,7 +31,7 @@ namespace TaxiService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignIn(SignInForm userForm)
+        public ActionResult SignIn(SignInForm form)
         {
             var user = (AppUser)Session["User"];
             if (user != null)
@@ -41,10 +41,10 @@ namespace TaxiService.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("SignIn", userForm);
+                return View("SignIn", form);
             }
 
-            var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == userForm.Username && u.Password == userForm.Password);
+            var dbUser = db.AppUsers.SingleOrDefault(u => u.Username == form.Username && u.Password == form.Password);
             if (dbUser == null)
             {
                 return HttpNotFound();
