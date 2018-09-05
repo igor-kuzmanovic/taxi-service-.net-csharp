@@ -12,11 +12,11 @@ namespace TaxiService.ViewModels
     {
         [Required]
         [Range(-180, 180)]
-        public float Longitude { get; set; }
+        public double Longitude { get; set; }
 
         [Required]
         [Range(-90, 90)]
-        public float Latitude { get; set; }
+        public double Latitude { get; set; }
 
         [Required]
         [StringLength(100)]

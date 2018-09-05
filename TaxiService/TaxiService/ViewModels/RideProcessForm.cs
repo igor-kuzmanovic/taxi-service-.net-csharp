@@ -31,9 +31,9 @@ namespace TaxiService.ViewModels
         [Display(Name = "Order Date Time")]
         public DateTime OrderDateTime { get; set; }
 
-        public float Longitude { get; set; }
+        public double Longitude { get; set; }
 
-        public float Latitude { get; set; }
+        public double Latitude { get; set; }
 
         public string Street { get; set; }
 

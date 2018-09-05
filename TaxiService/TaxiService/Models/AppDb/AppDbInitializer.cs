@@ -7,7 +7,7 @@ using System.Web;
 
 namespace TaxiService.Models
 {
-    public class AppDbInitializer : DropCreateDatabaseAlways<AppDbContext>
+    public class AppDbInitializer : CreateDatabaseIfNotExists<AppDbContext>
     {
         protected override void Seed(AppDbContext context)
         {
@@ -17,7 +17,7 @@ namespace TaxiService.Models
                 Username = "admin",
                 Password = "admin",
                 FirstName = "Adam",
-                LastName = "Adminton",
+                LastName = "Adminović",
                 Gender = Gender.Male,
                 UMCN = "1231231231231",
                 Phone = "065 656 656",
@@ -30,22 +30,22 @@ namespace TaxiService.Models
             context.AppUsers.AddOrUpdate(new AppUser()
             {
                 Id = 2,
-                Username = "driver1",
-                Password = "driver1",
-                FirstName = "Anne",
-                LastName = "Driverson",
+                Username = "vozac1",
+                Password = "vozac1",
+                FirstName = "Ana",
+                LastName = "Vozačević",
                 Gender = Gender.Female,
                 UMCN = "2342342342342",
                 Phone = "061 616 616",
-                Email = "anne@email.com",
+                Email = "ana@email.com",
                 Role = UserRole.Driver,
                 IsDriverBusy = true,
                 Location = new Location()
                 {
                     Id = 1,
-                    Longitude = 1,
-                    Latitude = 1,
-                    Street = "Main Street",
+                    Longitude = -125.21,
+                    Latitude = 15.12,
+                    Street = "Glavna Ulica",
                     StreetNumber = 15,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -69,22 +69,22 @@ namespace TaxiService.Models
             context.AppUsers.AddOrUpdate(new AppUser()
             {
                 Id = 3,
-                Username = "driver2",
-                Password = "driver2",
-                FirstName = "John",
-                LastName = "Driverson",
+                Username = "vozac2",
+                Password = "vozac2",
+                FirstName = "Stevan",
+                LastName = "Vozačević",
                 Gender = Gender.Male,
                 UMCN = "3453453453453",
                 Phone = "062 252 252",
-                Email = "john@email.com",
+                Email = "stevan@email.com",
                 Role = UserRole.Driver,
                 IsDriverBusy = true,
                 Location = new Location()
                 {
                     Id = 2,
-                    Longitude = 2,
-                    Latitude = 2,
-                    Street = "Side Street",
+                    Longitude = 112.32,
+                    Latitude = 23.12,
+                    Street = "Plava Ulica",
                     StreetNumber = 13,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -112,9 +112,9 @@ namespace TaxiService.Models
                 Source = new Location()
                 {
                     Id = 3,
-                    Longitude = 3,
-                    Latitude = 3,
-                    Street = "Red Street",
+                    Longitude = 121.23,
+                    Latitude = -4.58,
+                    Street = "Crvena Ulica",
                     StreetNumber = 11,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -137,9 +137,9 @@ namespace TaxiService.Models
                 Source = new Location()
                 {
                     Id = 4,
-                    Longitude = 4,
-                    Latitude = 4,
-                    Street = "Dove Street",
+                    Longitude = -58.123,
+                    Latitude = 44.23,
+                    Street = "Srebrna Ulica",
                     StreetNumber = 51,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -162,9 +162,9 @@ namespace TaxiService.Models
                 Source = new Location()
                 {
                     Id = 5,
-                    Longitude = 5,
-                    Latitude = 5,
-                    Street = "Whale Street",
+                    Longitude = 3.12,
+                    Latitude = -25.45,
+                    Street = "Zlatni Bulevar",
                     StreetNumber = 11,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -173,9 +173,9 @@ namespace TaxiService.Models
                 Destination = new Location()
                 {
                     Id = 6,
-                    Longitude = 6,
-                    Latitude = 6,
-                    Street = "Groove Street",
+                    Longitude = -123.23,
+                    Latitude = 78.12,
+                    Street = "Srebrni Bulevar",
                     StreetNumber = 12,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -196,9 +196,9 @@ namespace TaxiService.Models
                 Source = new Location()
                 {
                     Id = 7,
-                    Longitude = 7,
-                    Latitude = 7,
-                    Street = "Green Street",
+                    Longitude = 77.12,
+                    Latitude = -9.21,
+                    Street = "Roze Ulica",
                     StreetNumber = 11,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -207,9 +207,9 @@ namespace TaxiService.Models
                 Destination = new Location()
                 {
                     Id = 8,
-                    Longitude = 8,
-                    Latitude = 8,
-                    Street = "Purple Street",
+                    Longitude = -156.32,
+                    Latitude = -78.12,
+                    Street = "Trg Bronze",
                     StreetNumber = 34,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -230,9 +230,9 @@ namespace TaxiService.Models
                 Source = new Location()
                 {
                     Id = 9,
-                    Longitude = 9,
-                    Latitude = 9,
-                    Street = "Yellow Street",
+                    Longitude = -112.43,
+                    Latitude = 88.16,
+                    Street = "Golubov Trg",
                     StreetNumber = 45,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -251,7 +251,7 @@ namespace TaxiService.Models
             context.Comments.AddOrUpdate(new Comment()
             {
                 Id = 1,
-                Description = "Car broke down",
+                Description = "Vozilo se pokvarilo na putu.",
                 CreationDate = new DateTime(2017, 10, 23, 22, 27, 13),
                 Commenter = context.AppUsers.Find(3),
                 Ride = context.Rides.Find(5),
@@ -267,9 +267,9 @@ namespace TaxiService.Models
                 Source = new Location()
                 {
                     Id = 10,
-                    Longitude = 10,
-                    Latitude = 10,
-                    Street = "Green Street",
+                    Longitude = 78.213,
+                    Latitude = -11.86,
+                    Street = "Vojna Ulica",
                     StreetNumber = 2,
                     City = "Novi Sad",
                     PostalCode = 21000
@@ -288,7 +288,7 @@ namespace TaxiService.Models
             context.Comments.AddOrUpdate(new Comment()
             {
                 Id = 2,
-                Description = "Customer was acting inappropriately",
+                Description = "Mušterija je bila agresivna.",
                 CreationDate = new DateTime(2016, 11, 25, 11, 34, 12),
                 Commenter = context.AppUsers.Find(2),
                 Ride = context.Rides.Find(6),
