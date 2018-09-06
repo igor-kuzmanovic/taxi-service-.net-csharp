@@ -54,7 +54,7 @@ namespace TaxiService.ViewModels
         [Required]
         [StringLength(13, MinimumLength = 13)]
         [Display(Name = "Unique Master Citizen Number")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid Unique Master Citizen Number format.")]
+        [RegularExpression(@"^\d{13}$", ErrorMessage = "Invalid Unique Master Citizen Number format.")]
         public string UMCN { get; set; }
 
         [Required]
